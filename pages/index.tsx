@@ -1,8 +1,20 @@
 import Head from 'next/head'
-import Image from 'next/image' // use Image !!!!
+// import Image from 'next/image' // use Image !!!!
 import styles from '../styles/Home.module.css'
 
+import type { Invoice } from '../interfaces'
+import useSWR from 'swr'
+import Link from 'next/link'
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
 export default function Home() {
+
+  const {data, error} = useSWR<Invoice[]>('/api/data', fetcher)
+
+  if (error) return <div>Failed to load users</div>
+  if (!data) return <div>Loading...</div>
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,7 +24,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <p>main</p>
+        <p>all invoices</p>
+
+        {data.map((invoice) => (
+          <li key={invoice.id}>{invoice.clientName}</li>
+        ))}
       </main>
 
       <footer className={styles.footer}>
