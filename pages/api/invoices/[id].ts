@@ -3,9 +3,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import * as Methods from "../../../library/methods"
 import { Invoice } from '../../../interfaces'
 
-// developement URL http://localhost:3000/api/clients/[id]
+// {id: 'RT3080'}
+// developement URL http://localhost:3000/api/invoices/[id]
 
-export default function userHandler(req: NextApiRequest, res: NextApiResponse<Invoice>){
+export default function userHandler(req: NextApiRequest, res: NextApiResponse<Invoice|String>){
         
         const {query: {id}, method} = req
 
@@ -16,21 +17,27 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
 
             // typed variable for query parameter
             typedId = id;
- 
-            let invoiceExists: Boolean = Methods.invoiceByIdExist(id);
-            if(!invoiceExists) res.status(400).end(`Id doesn't exist`)
-        }
-        else {
+            // console.log(`[id].ts ${typedId}`)
+
             switch (method) {
                 case 'GET':
-                    // Get data from your JSON File
                     console.log(`Get`)
-                    res.status(200).json( Methods.invoiceById(typedId))
+                    // Get data from your DB
+                    let invoice = Methods.invoiceById(typedId);
+
+                    invoice.then(result => {
+                        // console.log(`[id].ts ${JSON.stringify(result)}`)
+
+                        // return null or an invoice
+                        res.status(200).json(result)
+                      })
+                      .catch(error => res.status(400).end(`Something went wrong [id].ts catch`))
+                    
                     break
                 case 'PUT':
                     console.log(`put`)
                     // Update or create data in your JSON File
-                    res.status(200).json( Methods.allInvoices()[1] )
+                    res.status(200).json('in progress')
                     break
                 default:
                     res.setHeader('Allow', ['GET', 'PUT'])

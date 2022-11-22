@@ -13,9 +13,10 @@ export default function handler(
   var allInvoices = dbMethods.allInvoicesDB()
 
   allInvoices.then(result => {
+
+    // return an array empty or with invoices
     res.status(200).json(result)
   })
-  .catch(error => res.status(400).end(`Something went wrong allInvoices.ts catch`))
-  .finally(() => res.status(400).end(`Something went wrong allInvoices.ts finally`))
 
+  .catch(error => res.status(400).end(`Something went wrong allInvoices.ts catch`))
 }

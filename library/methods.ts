@@ -1,50 +1,61 @@
-import { data } from "../data/data"
-import clientPromise from "./mongodb";
+import clientPromise from "./mongodb"
 import { Invoice } from '../interfaces'
 
-export const allInvoices = () => data;
 
 // get all invoices from DB synchronous
-export const allInvoicesDB = async ():Promise<Invoice[]|void> => {
+export const allInvoicesDB = async ():Promise<Invoice[] | void> => {
 
     try {
         const client = await clientPromise;
         const db = client.db("challenge");
-    
+
         const invoices = await db
             .collection("ivoices")
             .find({})
             .toArray();
     
         const data:Invoice[] = JSON.parse(JSON.stringify({invoices})).invoices
-        // const data1 = JSON.parse(JSON.stringify({invoices})).invoices[0].id
-        // console.log(`Data 1: ${JSON.stringify(data2)}, typeof ${typeof data1}`)
 
-        return data;
-        
     } catch (e) {
         console.error(e);
     }
 
-    return;
-}
-
-// is ther an invoice to the given id?
-export const invoiceByIdExist = (id:String) :  Boolean => {
-    
-    let invoiceExists = data.find(invoice => invoice.id === id)
-    return invoiceExists  ? true : false
+    console.error('Error in DB conncection function allInvoicesDB');
+    return [];
 }
 
 //returns one invoice
-export const invoiceById = (id:String) :  any => {
+export const invoiceById = async (id:String):Promise<Invoice | String> => {
     
-    const invoice = data.find(invoice => invoice.id === id)
-    
-    return invoice ? invoice : 0
+    try {
+        const client = await clientPromise;
+        const db = client.db("challenge");
+
+        // console.log(`invoiceById`)
+
+        const invoice= await db
+            .collection("ivoices")
+            .findOne({id: id});
+
+        // console.log(`FindOne ${JSON.stringify(invoice)}, ${typeof invoice}`)
+        // const data:DbMethods<Invoice> = JSON.stringify(invoice) === null ? null : JSON.parse(JSON.stringify(invoice))        
+        // return data
+
+        return JSON.stringify(invoice) === null ? '' : JSON.parse(JSON.stringify(invoice))
+
+
+    } catch (e) {
+
+        console.error(e);
+    }
+
+    console.error('Error in DB conncection function invoiceById');
+    return '';
 }
 
 
 // Create, read, update, and delete invoices
 // Save draft invoices, and mark pending invoices as paid
 // - Filter invoices by status (draft/pending/paid)
+
+// local mongodb://localhost:27017
