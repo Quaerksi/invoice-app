@@ -1,0 +1,15 @@
+:root{
+    
+    --color-dark-purple: hsl(252, 94%, 67%);
+    --color-purple: hsl(252, 100%, 73%);
+    --color-light-black: hsl(233, 31%, 17%);
+    --color-anthrazit: hsl(233, 30%, 21%);
+    --color-light-gray: hsl(231, 73%, 93%);
+    --color-dark-gray: hsl(231, 20%, 61%);
+    --color-blue-gray: hsl(231, 37%, 63%);
+    --color-black: hsl(228, 29%, 7%);
+    --color-red: hsl(0, 80%, 63%);
+    --color-pink: hsl(0, 100%, 80%);
+    --color-white: hsl(240, 27%, 98%);
+    --color-gray-black: hsl(233, 30%, 11%);
+  }

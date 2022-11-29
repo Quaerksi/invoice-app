@@ -3,7 +3,7 @@ import { Invoice } from '../interfaces'
 
 
 // get all invoices from DB synchronous
-export const allInvoicesDB = async ():Promise<Invoice[] | void> => {
+export const allInvoicesDB = async ():Promise<Invoice[] | [] | Array<Number>> => {
 
     try {
         const client = await clientPromise;
@@ -15,13 +15,15 @@ export const allInvoicesDB = async ():Promise<Invoice[] | void> => {
             .toArray();
     
         const data:Invoice[] = JSON.parse(JSON.stringify({invoices})).invoices
+        return data;
 
     } catch (e) {
         console.error(e);
+        console.log('HalloS')
     }
 
     console.error('Error in DB conncection function allInvoicesDB');
-    return [];
+    return []
 }
 
 //returns one invoice
@@ -31,7 +33,7 @@ export const invoiceById = async (id:String):Promise<Invoice | String> => {
         const client = await clientPromise;
         const db = client.db("challenge");
 
-        // console.log(`invoiceById`)
+        console.log(`invoiceById`)
 
         const invoice= await db
             .collection("ivoices")
