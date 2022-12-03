@@ -1,15 +1,23 @@
+"use client"
+
 import styles from './layout.module.css'
-// import '../styles/globals.css'
+import '../styles/globals.css'
 import '../styles/design-tokens.css'
-import { League_Spartan, Roboto_Flex} from '@next/font/google'
+import { League_Spartan} from '@next/font/google'
 // Fallback fonts neccesary here?
+import Aside from "../components/aside"
+import React, { useState } from 'react';
 
 const league_Spartan = League_Spartan({ subsets: ['latin']})
-const fontFam:String = league_Spartan.style.fontFamily;
 
 export default function Layout({ children }: {
     children: React.ReactNode;
   }) {
+
+    //false is light mide, true is dark mode
+    //To do: save preference on user browser
+    const [darkMode, setDarkMode] = useState(false);;
+
     return (
       <html lang="en">
         <head>
@@ -22,8 +30,10 @@ export default function Layout({ children }: {
               }
             `}</style> */}
         </head>
-        <body style={{fontFamily: `${fontFam}`}} className={styles.localVar}>
-          <aside className={styles.aside}>aside</aside>
+        <body style={{fontFamily: `${league_Spartan.style.fontFamily}`}} className={styles.localVar}>
+          <aside className={styles.aside}>
+            <Aside darkMode={darkMode} setDarkMode={setDarkMode}/>
+          </aside>
           <div className={styles.content}>
           {children}
           </div>

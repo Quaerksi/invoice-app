@@ -12,6 +12,9 @@
     --color-white: hsl(240, 27%, 98%);
     --color-gray-black: hsl(233, 30%, 11%);
 
+    --distance-to-side-edge: 1rem;
+
+    /* [data-theme="light"] */
     --color-background-button3: ##F9FAFE;
     --color-font-button3: var(--color-blue-gray);
   }

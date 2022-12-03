@@ -1,0 +1,6 @@
+.aside{
+    width: 100%;
+    height: 100%;
+    background-color:bisque;
+    padding: var(--distance-to-side-edge);
+}

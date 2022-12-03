@@ -11,7 +11,8 @@ body {
 } 
 
 button{
-  /* all: unset; */
+  all: unset;
+  cursor: pointer;
 }
 
 /* H1  |  Spartan Bold  |  32px  |  36px Line  |  -1 Spacing */
