@@ -1,23 +1,58 @@
 
 .btn{
-    /* position: absolute; */
+    display: inline-block;
     height: 3.2rem;
-    --var-background: var(--color-dark-purple);
-
-    color: var(--color-white);
     background-color: var(--var-background);
     border-radius: 2rem; 
-    
     cursor: pointer;
-    display: inline-block;
 }
 
-.btn:hover{
+.btnColor1{
+    color: var(--color-white);
+    --var-background: var(--color-dark-purple);
+}
+
+.btnColor1:hover{
     --var-background: var(--color-purple);
 }
 
+.btn3ColorLight{
+    color: var(--color-blue-gray);
+    --var-background: #F9FAFE;
+}
+
+.btn3ColorLight:hover{
+    --var-background: var(--color-light-gray);
+}
+
+.btn3ColorDark{
+    color: var(--color-light-gray);
+    --var-background: var(--color-anthrazit);
+}
+
+.btn3ColorDark:hover{
+    --var-background: #F9FAFE;
+}
+
+.btn4ColorLight{
+    color: var(--color-dark-gray);
+    --var-background: #373B53;
+}
+
+.btn4ColorLight:hover{
+    --var-background: var(--color-black);
+}
+
+.btn4ColorDark{
+    color: var(--color-light-gray);
+    --var-background: #373B53;
+}
+
+.btn4ColorDark:hover{
+    --var-background: var(--color-light-black);
+}
+
 .btnFlex{
-    display: flex;
     display: flex;
     height: 100%;
     align-items: center;
@@ -36,7 +71,6 @@
 
 .circle{
     display: inline-block;
-
     font-size: 1.5em; 
     height: 2.3rem; 
     aspect-ratio: 1;
@@ -65,7 +99,7 @@
 
     .btn1,
     .btn2{
-        padding-inline: 1.3rem;
+        padding-inline: 1.5rem;
     }
 
     .btn2{
@@ -73,5 +107,24 @@
     }
 }
 
+/* order */
 
+h1.h1{
+    margin-left: 3rem;
+}
 
+.order{
+    margin-inline: 3rem;
+    display: flex;
+    gap: 5rem;
+}
+
+div.order2 > *{
+    display: inline-block;
+    align-self: start;   
+}
+
+div.order2 > h3 {
+    margin: 0;
+    margin-right: 3rem;
+}

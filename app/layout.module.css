@@ -1,0 +1,18 @@
+.localVar{
+  --distance-aside-left: 20vw;
+}
+
+
+
+.aside{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--distance-aside-left);
+  height: 100vh;
+  background-color:bisque;
+}
+
+.content{
+  margin-left: var(--distance-aside-left);
+}

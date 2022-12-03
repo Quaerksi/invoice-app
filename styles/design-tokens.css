@@ -1,5 +1,4 @@
 :root{
-    
     --color-dark-purple: hsl(252, 94%, 67%);
     --color-purple: hsl(252, 100%, 73%);
     --color-light-black: hsl(233, 31%, 17%);
@@ -12,4 +11,12 @@
     --color-pink: hsl(0, 100%, 80%);
     --color-white: hsl(240, 27%, 98%);
     --color-gray-black: hsl(233, 30%, 11%);
+
+    --color-background-button3: ##F9FAFE;
+    --color-font-button3: var(--color-blue-gray);
+  }
+
+  [data-theme="dark"]{
+    --color-background-button3: var(--color-anthrazit);
+    --color-font-button3:  var(--color-light-gray):
   }
