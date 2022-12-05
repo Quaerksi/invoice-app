@@ -4,15 +4,16 @@ import styles from './aside.module.css'
 
 
 interface DarkMode{
-    darkMode: Boolean
-    setDarkMode: React.Dispatch<React.SetStateAction<boolean>>
+    // possible values: dark | light
+    themeMode: String
+    setThemeMode: React.Dispatch<React.SetStateAction<string>>
 }
 
 export default function Aside(props: DarkMode) {
 
-    let changeMode = () => props.setDarkMode(mode => !mode)
+    let changeMode = () => props.setThemeMode(mode => mode === 'light' ? 'dark' : 'light') 
     // controll mode changing
-    console.log(`Dark Mode ${props.darkMode}`)
+    console.log(`Dark Mode ${props.themeMode}`)
     
     return (
         <>
