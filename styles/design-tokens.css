@@ -20,27 +20,34 @@
   }
 
   [data-theme="light"]{
+    /* button 3 */
     --color-background-button3: var(--color-button-white);
     --color-background-button3-hover: var(--color-light-gray);
     --color-font-button3: var(--color-blue-gray);
 
+    /* button 4 */
     --color-background-button4: var(--color-button-dark);
     --color-background-button4-hover: var(--color-black);
     --color-font-button4: var(--color-dark-gray);
 
+    /* Form Elements */
     --color-form-border: var(--color-light-gray);
-    --color-form-border-active: var(--color-purple);
+    --color-form-active: var(--color-purple);
     --color-form-font-headings: var(--color-blue-gray);
     --color-form-font: var(--color-black);
     --radius-form: .5rem;
   }
 
   [data-theme="dark"]{
+    /* button 3 */
     --color-background-button3: var(--color-anthrazit);
     --color-background-button3-hover: var(--color-button-white);
     --color-font-button3: var(--color-light-gray);
 
+    /* button 4 */
     --color-background-button4: var(--color-button-dark);
     --color-background-button4-hover: var(--color-light-black);
     --color-font-button4: var(--color-light-gray);
+
+    /* Form Elements */
   }
