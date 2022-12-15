@@ -1,15 +1,21 @@
 "use client"
 
-import '../../styles/globals.css'
 import styles from './designsystem.module.css'
-import React, {useRef} from 'react'
+import '../../styles/globals.css'
+import React, {useRef, useState} from 'react'
 import DropdownDefault from '../../components/dropdownDefault'
+import DatePicker, {registerLocale} from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+import de from 'date-fns/locale/de';
+registerLocale('de', de);
 
 // import Image from 'next/image' 
 // import Link from 'next/link'
 
 export default function Page() {
-    
+
+    const [startDate, setStartDate] = useState(new Date());
+
   return         <>
   <h1 className={`${styles.h1}`}>Designsystem</h1>
   <div className={`${styles.order}`}>
@@ -90,12 +96,22 @@ export default function Page() {
     <div className={`${styles.order}`}>
         <div>
             <form className={`${styles.form}`} action="" method="post">
-                <div>
+                <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']}/>
+                
                     <h3>Text Field</h3>
-                    <label className={`${styles.label}`} htmlFor="adress">Street Address:</label>
+                    <label  htmlFor="adress">Street Address:</label>
                     <input className={`${styles.input}`} type="text" id="adress" name="adress" />
-                </div>
-                <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']}/>  
+    
+                    <h3>Date 1</h3>
+                    <label htmlFor="date">Issue Date:</label>
+                    <DatePicker 
+                        locale="de"
+                        dateFormat="dd MMM yyyy"
+                        showPopperArrow={false}
+                        closeOnScroll={true}
+                        selected={startDate} 
+                        onChange={(date:Date) => setStartDate(date)} 
+                    />
             </form>
         </div>
     </div>

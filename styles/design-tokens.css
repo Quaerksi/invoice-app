@@ -32,10 +32,11 @@
 
     /* Form Elements */
     --color-form-border: var(--color-light-gray);
-    --color-form-active: var(--color-purple);
+    --color-form-active: var(--color-dark-purple);
     --color-form-font-headings: var(--color-blue-gray);
     --color-form-font: var(--color-black);
     --radius-form: .5rem;
+    --color-background: white;
   }
 
   [data-theme="dark"]{

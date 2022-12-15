@@ -72,7 +72,9 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
         let letRefDropdownMenu = refDropdownMenu.current
 
         if(letRefDropdown && letRefDropdown.firstElementChild && target.firstElementChild && letRefDropdownMenu){
-            letRefDropdown.firstElementChild.textContent = target.firstElementChild.textContent
+            // letRefDropdown.firstElementChild.textContent = target.firstElementChild.textContent
+            letRefDropdown.firstElementChild.setAttribute('value', target.firstElementChild.textContent || '');
+            
             letRefDropdown.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--color-form-border')
             letRefDropdownMenu.style.display = 'none';
         }
@@ -84,7 +86,7 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
 
         if(target && target.firstElementChild){
 
-            let targetChild = target.firstElementChild as HTMLSpanElement
+            let targetChild = target.firstElementChild as HTMLInputElement
             targetChild.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-form-active')
         }
     }
@@ -95,20 +97,22 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
 
         if(target && target.firstElementChild){
 
-            let targetChild = target.firstElementChild as HTMLSpanElement
+            let targetChild = target.firstElementChild as HTMLInputElement
             targetChild.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-form-font');
         }
     }
 
     //handle list elements name
-    const typedArray:React.ReactElement[] = elements.map(name => <li onClick={handleDropdownMethod} onMouseEnter={dropdownColorTextOnEnter} onMouseLeave={dropdownColorTextOnLeave}><span> {name} </span></li>)
+    const typedArray:React.ReactElement[] = elements.map((name, index, arr) => <li key={`dropdown-${index}`} onClick={handleDropdownMethod} onMouseEnter={dropdownColorTextOnEnter} onMouseLeave={dropdownColorTextOnLeave}><span>{name}</span></li>)
     
     return <div>
                 <h3>Dropdown Default</h3>
                 <div className={`${styles.dropdown}`}>
-                    {name}
+                    <label htmlFor='dropdown'>{name}:</label>
+                    
                     <div ref={refDropdown} className={`${styles.dropdownLabel}`} onClick={openDropdownMenu} onMouseEnter={openDropdownMenuBorderColorOnEnter} onMouseLeave={openDropdownMenuBorderColorOnLeave}>
-                        <span> Next 1 Day </span>
+                        {/* <span> Next 1 Day </span> */}
+                        <input className={`${styles.inputValue}`} value="Next 1 Day" readOnly></input>
                         <Image
                             src="/assets/icon-arrow-down.svg"
                             alt="arrow down symbol"

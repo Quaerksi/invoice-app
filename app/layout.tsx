@@ -1,9 +1,10 @@
 "use client"
 
-import styles from './layout.module.css'
-import '../styles/globals.css'
 import '../styles/design-tokens.css'
+import '../styles/globals.css'
+import styles from './layout.module.css'
 import { League_Spartan} from '@next/font/google'
+
 // Fallback fonts neccesary here?
 import Aside from "../components/aside"
 import React, { useState, useEffect } from 'react';

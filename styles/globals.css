@@ -72,7 +72,6 @@ a {
 
 }
 
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -82,3 +81,32 @@ a {
     background: black;
   }
 }
+
+/* global form */
+
+label{
+  color: var(--color-form-font-headings);
+  margin-bottom: .3rem;
+  display: block;
+}
+
+input{
+  display: block;
+}
+
+/* customize react-datepicker */
+
+.react-datepicker__header{
+  background-color: var(--color-background) !important;
+}
+
+.react-datepicker__current-month{
+  margin-top: .5rem  !important;
+}
+
+.react-datepicker__input-container input {
+  border: .1rem solid var(--color-form-border) !important;
+  padding: .8rem;
+  border-radius: var(--radius-form) !important;
+}
+
