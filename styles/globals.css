@@ -8,6 +8,8 @@ body {
   font-size: 11px;
   line-height: 15px;
   letter-spacing: -.23px;
+  background-color: var(--color-background-site);
+  color: var(--color-font-site);
 } 
 
 button{
@@ -92,16 +94,33 @@ label{
 
 input{
   display: block;
+  border-style: none;
+  background: white;
+  color: var(--color-form-font);
+  border-radius: var(--radius-form);
+  background-color: var(--color-background);
+  border: .1rem solid var(--color-form-border);
+  padding: .8rem;
 }
 
 /* customize react-datepicker */
 
-.react-datepicker__header{
+.react-datepicker__header,
+.react-datepicker__month{
   background-color: var(--color-background) !important;
+}
+
+.react-datepicker__month{
+  padding: 4.4px !important;
+  margin: 0 !important;
 }
 
 .react-datepicker__current-month{
   margin-top: .5rem  !important;
+}
+
+.react-datepicker__day{
+  color: var(--color-form-font) !important;
 }
 
 .react-datepicker__input-container input {

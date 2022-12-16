@@ -2,21 +2,44 @@
 
 import '../styles/globals.css'
 import styles from './dropdownDefault.module.css'
-import React, {useRef} from 'react'
 import Image from 'next/image' 
-import type { AppProps } from 'next/app'
+import { useEffect, useRef } from 'react'
+
+// Context theme
+import { useThemeContext } from '../app/useThemeContext'
 
 interface dropdownValues {
     name: string,
     elements: string[]
 }
 
-// React.ReactElement[]
-
 export default function DropdownDefault({name, elements}: dropdownValues)  {
 
     const refDropdown = useRef<HTMLDivElement>(null);
     const refDropdownMenu = useRef<HTMLUListElement>(null)
+
+    const {themeMode} = useThemeContext();
+    console.log(`Theme mode: ${themeMode}`)
+
+        // handle dropbdown font color on theme switch
+        useEffect(() => {
+
+            let letRefDropdownMenu = refDropdownMenu.current
+
+            if(letRefDropdownMenu){
+                for(let i = 0; i < letRefDropdownMenu.children.length; i++){
+                    let thisElement = letRefDropdownMenu.children[i].children
+                    if(themeMode === 'light' && thisElement){
+                        thisElement[0].setAttribute('style',`color:${getComputedStyle(document.documentElement).getPropertyValue('--color-black')};`)
+                    } else if (themeMode === 'dark' && thisElement){
+                        thisElement[0].setAttribute('style',`color:${getComputedStyle(document.documentElement).getPropertyValue('--color-white')};`)
+                    }  
+                }
+                letRefDropdownMenu.style.display = 'none'
+            }
+          }, [themeMode])
+
+   
 
     // open and close dropdown menu with display='block' ||'none
     // handle border color dropdown-label
@@ -86,8 +109,9 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
 
         if(target && target.firstElementChild){
 
-            let targetChild = target.firstElementChild as HTMLInputElement
+            let targetChild = target.firstElementChild as HTMLSpanElement
             targetChild.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-form-active')
+            // targetChild.style.color = 'var(--color-form-active);'
         }
     }
 
@@ -97,8 +121,9 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
 
         if(target && target.firstElementChild){
 
-            let targetChild = target.firstElementChild as HTMLInputElement
+            let targetChild = target.firstElementChild as HTMLSpanElement
             targetChild.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-form-font');
+            // targetChild.style.color = 'var(--color-form-font);'
         }
     }
 
@@ -107,7 +132,7 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
     
     return <div>
                 <h3>Dropdown Default</h3>
-                <div className={`${styles.dropdown}`}>
+                <div className={`${styles.dropdown}`} >
                     <label htmlFor='dropdown'>{name}:</label>
                     
                     <div ref={refDropdown} className={`${styles.dropdownLabel}`} onClick={openDropdownMenu} onMouseEnter={openDropdownMenuBorderColorOnEnter} onMouseLeave={openDropdownMenuBorderColorOnLeave}>

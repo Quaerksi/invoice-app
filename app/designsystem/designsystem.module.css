@@ -113,38 +113,12 @@
 }
 /****** form *******/
 
-.form > div > *{
-    
-    display: block;
-}
-
-/* .form > div > p {
-    margin-bottom: .3rem;
-} */
-
-/* .label{
-    color: var(--color-form-font-headings);
-    margin-bottom: .3rem;
-} */
-
-.input{
-    border-style: none;
-    background: white;
-    border-radius: var(--radius-form);
-}
-
-.input{
-    border: .1rem solid var(--color-form-border);
-    padding: .8rem;
-}
 
 .input:focus,
 .dropdownLabel:hover{
     outline: none;
     border-color: var(--color-form-active);
 }
-
-
 
 /***** order ******/
 

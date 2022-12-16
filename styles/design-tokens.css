@@ -20,6 +20,8 @@
   }
 
   [data-theme="light"]{
+    --color-background-site: var(--color-white);
+    --color-font-site: var(--color-black);
     /* button 3 */
     --color-background-button3: var(--color-button-white);
     --color-background-button3-hover: var(--color-light-gray);
@@ -40,6 +42,8 @@
   }
 
   [data-theme="dark"]{
+    --color-background-site: var(--color-gray-black);
+    --color-font-site: var(--color-white);
     /* button 3 */
     --color-background-button3: var(--color-anthrazit);
     --color-background-button3-hover: var(--color-button-white);
@@ -51,4 +55,9 @@
     --color-font-button4: var(--color-light-gray);
 
     /* Form Elements */
+    --color-form-active: var(--color-dark-purple);
+    --color-form-font: var(--color-white);
+    --radius-form: .5rem;
+    --color-background: var(--color-light-black);
+    /* --color-background-datepicker: var() */
   }

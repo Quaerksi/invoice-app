@@ -20,6 +20,7 @@
     align-items: center;
     border: .1rem solid var(--color-form-border);
     padding: .8rem;
+    background-color: var(--color-background);
     /* margin-top: .5rem; */
 }
 
@@ -41,13 +42,14 @@
     border-bottom: .01rem solid var(--color-form-border);
 }
 
-.dropdownContent > li > input{
+.dropdownContent > li > span{
     padding-inline: 1.8rem;
 }
 
-.dropdownContent > li > input:hover {
+.dropdownContent > li > span:hover {
     color: var(--color-form-active)
 }
+
 
 .inputValue{
     border: transparent;

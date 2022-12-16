@@ -2,19 +2,17 @@
 
 import styles from './aside.module.css'
 
+// Context theme
+import { useThemeContext } from '../app/useThemeContext'
 
-interface DarkMode{
-    // possible values: dark | light
-    themeMode: String
-    setThemeMode: React.Dispatch<React.SetStateAction<string>>
-}
+export default function Aside() {
 
-export default function Aside(props: DarkMode) {
+    const {themeMode, setThemeMode} = useThemeContext();
 
-    let changeMode = () => props.setThemeMode(mode => mode === 'light' ? 'dark' : 'light') 
-    // controll mode changing
-    console.log(`Dark Mode ${props.themeMode}`)
-    
+    let changeMode = () => {themeMode === 'light' ? setThemeMode('dark') : setThemeMode('light')}
+
+
+    // controll mode changing 
     return (
         <>
             <div className={styles.aside}>
