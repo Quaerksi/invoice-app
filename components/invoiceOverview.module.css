@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding: 3rem;
+}
+
+.imageArrowRight{
+    display: none;
+}
+
+ .containerLeftSite, 
+ .containerRightSite{
+    color: var(--color-main-font)
+ }
+
+
+.containerLeftSite > p,
+.containerRightSite > p{
+    color: var(--color-second-font);
+}
+
+@media(min-width: 500px){
+
+    /* .container > * {
+        display: inline-block;
+    } */
+  }

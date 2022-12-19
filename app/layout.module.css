@@ -1,15 +1,36 @@
-.localVar{
-  --distance-aside-left: 20vw;
-}
-
-.aside{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--distance-aside-left);
-  height: 100vh;
+.contentOrder{
+  display: flex;
+  flex-direction: column;
 }
 
 .content{
-  margin-left: var(--distance-aside-left);
+  margin: 2rem;
 }
+
+@media(min-width: 500px){
+
+  .content{
+    margin: 4rem;
+  }
+}
+
+@media(min-width: 768px){
+
+  .content{
+    margin-inline: auto;
+    width: clamp(600px, 80%, 800px)
+  }
+}
+
+@media(min-width: 90rem){
+
+  .contentOrder{
+    flex-direction: row;
+  }
+
+  .content{
+      min-width: 800px;
+     margin-inline: auto;
+  }
+}
+

@@ -10,6 +10,7 @@ import { ThemeProvider } from '../context/themeContext'
 // component
 import Aside from "../components/aside"
 
+
 // Fallback fonts neccesary here?
 const league_Spartan = League_Spartan({ subsets: ['latin']})
 
@@ -33,15 +34,12 @@ export default function Layout({ children }: {
             `}</style> */}
         </head>
         
-          <body style={{fontFamily: `${league_Spartan.style.fontFamily}`}} className={styles.localVar}>
-          <ThemeProvider>
-            <aside className={styles.aside}>
+          <body style={{fontFamily: `${league_Spartan.style.fontFamily}`}} className={styles.contentOrder}>
+            <ThemeProvider>
               <Aside />
-            </aside>
-            
-            <div className={styles.content}>
-              {children}
-            </div>
+              <div className={styles.content}>
+                {children}
+              </div>
             </ThemeProvider>
           </body>
         

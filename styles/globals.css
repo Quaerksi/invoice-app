@@ -1,16 +1,21 @@
 html,
 body {
   padding: 0;
-  /* margin: 0; */
+  margin: 0;
+  min-width: 300px;
+  height: 100%;
 
   /* Body 2, Spartan Medium 500, 11px , 18px Line, -0,23 Spacing  */
   font-variation-settings: 'wght' 500;
+  /* Attention 1rem -> 11px */
   font-size: 11px;
   line-height: 15px;
   letter-spacing: -.23px;
   background-color: var(--color-background-site);
   color: var(--color-font-site);
 } 
+
+
 
 button{
   all: unset;
@@ -20,10 +25,12 @@ button{
 /* H1  |  Spartan Bold  |  32px  |  36px Line  |  -1 Spacing */
 h1{
   font-variation-settings: 'wght' 700;
-  font-size: 32px;
+  font-size: 20px;
   line-height: 36px;
   letter-spacing: -1px;
 }
+
+
 
 /* H2  |  Spartan Bold  |  20px  |  22px Line  |  -0.63 Spacing */
 h2{
@@ -41,8 +48,9 @@ h3{
   letter-spacing: .7px;
 }
 
+@media(min-width: 500px){
 /* @media(min-width: 768px){ */
-  @media(min-width: 48em){
+  /* @media(min-width: 48em){ */
 
   /* not totaly clear now where to use exactly: Body1 & H3-1 */
 
@@ -53,6 +61,10 @@ h3{
     line-height: 15px;
     letter-spacing: -.25px;
     
+  }
+
+  h1{
+    font-size: 32px;
   }
 
   /* H3-1  |  Spartan Bold  |  16px  |  24px Line  |  -0.8 Spacing */

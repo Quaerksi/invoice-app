@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import de from 'date-fns/locale/de';
 registerLocale('de', de);
 
-// import Image from 'next/image' 
+import Image from 'next/image' 
 // import Link from 'next/link'
 
 export default function Page() {
@@ -102,7 +102,7 @@ export default function Page() {
                     
                         <h3>Text Field</h3>
                         <label  htmlFor="adress">Street Address:</label>
-                        <input className={`${styles.input}`} type="text" id="adress" name="adress" />
+                        <input className={`${styles.input}`} type="text" id="adress" name="adress" />                        
         
                         <h3>Date 1</h3>
                         <label htmlFor="date">Issue Date:</label>
@@ -113,6 +113,12 @@ export default function Page() {
                             closeOnScroll={true}
                             selected={startDate} 
                             onChange={(date:Date) => setStartDate(date)} 
+                        />
+                        <Image
+                            src="/assets/icon-calender.svg"
+                            alt="icon calender"
+                            height={7}
+                            width={11}
                         />
                 </form>
             </div>

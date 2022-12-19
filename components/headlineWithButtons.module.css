@@ -1,0 +1,27 @@
+.order{
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderButton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.headline{
+    color: var(--color-main-font);
+    margin-bottom: 0;
+}
+
+.secondLine{
+    color: var(--color-second-font);
+    margin-top: 0;
+}
+
+.btnWithArrow{
+    color: var(--color-main-font);;
+}
+
+/* --color-main-font, --color-second-font */

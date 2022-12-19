@@ -16,7 +16,8 @@
     --color-button-dark: hsl(231, 20%, 27%); /* #373B53 */
     --color-button-light-red: hsl(0, 100%, 79%);/* #FF9797 */
 
-    --distance-to-side-edge: 1rem;
+    --background-color-header: #494E6E;
+    --border-radius: 2rem;
   }
 
   [data-theme="light"]{
@@ -39,6 +40,10 @@
     --color-form-font: var(--color-black);
     --radius-form: .5rem;
     --color-background: white;
+
+    /* homepage */
+    --color-main-font: var(--color-black);
+    --color-second-font: var(--color-dark-gray);
   }
 
   [data-theme="dark"]{
@@ -60,4 +65,8 @@
     --radius-form: .5rem;
     --color-background: var(--color-light-black);
     /* --color-background-datepicker: var() */
+
+    /* homepage */
+    --color-main-font: white;
+    --color-second-font: var(--color-light-gray);
   }
