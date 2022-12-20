@@ -143,6 +143,7 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
                             alt="arrow down symbol"
                             height={7}
                             width={11}
+                            priority={true}
                         />
                     </div>
                     <ul ref={refDropdownMenu} className={`${styles.dropdownContent}`}>

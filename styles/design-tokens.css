@@ -21,7 +21,7 @@
   }
 
   [data-theme="light"]{
-    --color-background-site: var(--color-white);
+    --color-background-site: #F2F2F2;
     --color-font-site: var(--color-black);
     /* button 3 */
     --color-background-button3: var(--color-button-white);
@@ -44,10 +44,13 @@
     /* homepage */
     --color-main-font: var(--color-black);
     --color-second-font: var(--color-dark-gray);
+
+    /* invoice overview */
+    --color-background-invoiceOverview: #FFF;
   }
 
   [data-theme="dark"]{
-    --color-background-site: var(--color-gray-black);
+    --color-background-site: var(--color-light-black);
     --color-font-site: var(--color-white);
     /* button 3 */
     --color-background-button3: var(--color-anthrazit);
@@ -69,4 +72,7 @@
     /* homepage */
     --color-main-font: white;
     --color-second-font: var(--color-light-gray);
+
+    /* invoice overview */
+    --color-background-invoiceOverview: var( --color-anthrazit);
   }

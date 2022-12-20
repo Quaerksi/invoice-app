@@ -31,6 +31,7 @@ export default function Headline(prop: Props) {
                                         alt="Picture of the user"
                                         width={8}
                                         height={8}
+                                        priority={true}
                                     />
                                 </div>
                                

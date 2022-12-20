@@ -14,13 +14,13 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
      // handle theme mode
      useEffect(() => {
-      console.log('Use effect')
+
       if(themeMode === 'dark'){
-        console.log('Use effect 1 dark')
+
         document.documentElement.setAttribute('data-theme', 'dark');
         // localStorage.setItem('theme', 'dark'); 
       } else if (themeMode === 'light'){
-        console.log('Use effect 2 light')
+       
         document.documentElement.setAttribute('data-theme', 'light');
         // localStorage.setItem('theme', 'dark'); 
       }

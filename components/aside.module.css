@@ -5,7 +5,6 @@
     height: 6.5rem;
     aspect-ratio: 1;
     background-color: var(--color-dark-purple);
-    /* display: inline-block; */
     display: flex;
     align-items: flex-end;
     border-radius: 0  var(--border-radius) var(--border-radius) 0;
@@ -70,7 +69,6 @@
     
     .order{
         flex-direction: column;
-        align-items: space-between;
     }
 
     .interactiveBlock{

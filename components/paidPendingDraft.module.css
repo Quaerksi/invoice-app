@@ -1,0 +1,61 @@
+.paidPendingDraft{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 9rem;
+    height: 4rem;
+    padding-top: .1rem;
+    border-radius: 1rem;
+}
+
+.backgroundColorGreenTransparent{
+    background-color: rgba(51, 214, 159, .2)
+}
+
+.backgroundColorOrangeTransparent{
+    background-color: rgba(255, 143, 0, .2);
+}
+
+.backgroundColorGrayTransparent{
+    background-color: rgba(151, 151, 151, .2);
+}
+
+.paidPendingDraftPoint{
+    display: inline-block;
+    width: 1rem;
+    aspect-ratio: 1;
+    border-radius: 100%;
+}
+
+.backgroundColorGreen{
+    background-color: rgb(51, 214, 159);
+}
+
+.backgroundColorOrange{
+    background-color: rgb(255, 143, 0);
+}
+
+.backgroundColorGray{
+    background-color: rgb(151, 151, 151);
+}
+
+.fontColorGreen{
+    color: rgb(51, 214, 159);
+}
+
+.fontColorOrange{
+    color: rgb(255, 143, 0);
+}
+
+.fontColorGray{
+    color: rgb(151, 151, 151);
+}
+
+@media(min-width: 500px){
+
+    .paidPendingDraft{
+        width: 10rem;
+    }
+  }

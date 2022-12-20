@@ -13,14 +13,6 @@ export default function Aside() {
 
     let changeMode = () => {themeMode === 'light' ? setThemeMode('dark') : setThemeMode('light')}
 
-    // // handle theme mode
-    // useEffect(() => {
-        
-    //   }, [themeMode])
-
-
-
-    // controll mode changing 
     return (
         <>
             <div className={`${styles.aside} ${styles.order}`}>
@@ -35,7 +27,6 @@ export default function Aside() {
                         height={28}
                     />
                 </div>
-                {/* <button onClick={changeMode}>Dark/Light</button> */}
                 <div className={`${styles.interactiveBlock}`}>
                     {themeMode === 'light' ?
                     <Image
@@ -45,6 +36,7 @@ export default function Aside() {
                         alt="Button switch theme dark to light and back"
                         width={30}
                         height={30}
+                        priority={true}
                     /> 
                     :
                     <Image

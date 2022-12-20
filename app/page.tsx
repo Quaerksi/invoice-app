@@ -22,7 +22,7 @@ export default function Page() {
     if (error) return <div>Failed to load users</div>
     if (!data) return <div>Loading...</div>
 
-    const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <InvoiceOverview />)
+    const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <InvoiceOverview key={`InvoiceOverview-${index}`} invoice={invoice} />)
 
     return <div className={styles.content}>
         {/* {data?.map((invoice:Invoice) => (

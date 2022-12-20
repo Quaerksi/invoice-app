@@ -9,9 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import de from 'date-fns/locale/de';
 registerLocale('de', de);
 
-import Image from 'next/image' 
-// import Link from 'next/link'
-
 export default function Page() {
 
     const [startDate, setStartDate] = useState(new Date());
@@ -114,15 +111,12 @@ export default function Page() {
                             selected={startDate} 
                             onChange={(date:Date) => setStartDate(date)} 
                         />
-                        <Image
-                            src="/assets/icon-calender.svg"
-                            alt="icon calender"
-                            height={7}
-                            width={11}
-                        />
                 </form>
             </div>
         </div>
+
+        
+
     </>
     )
   
