@@ -11,6 +11,10 @@ import styles from './landingpage.module.css'
 import Headline from '../components/headlineWithButtons'
 import InvoiceOverview from '../components/invoiceOverview'
 
+// Context filter
+import { FilterProvider } from '../context/filterContext'
+
+
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -28,10 +32,12 @@ export default function Page() {
         {/* {data?.map((invoice:Invoice) => (
            <li key={invoice.id}>{invoice.clientName}</li>
          ))} */}
+         <FilterProvider>
          <Headline countInvoices={data?.length}/>
          {
              allInvoices
          }
+         </FilterProvider>
     </div>
     
 

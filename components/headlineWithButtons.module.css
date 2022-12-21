@@ -24,4 +24,43 @@
     color: var(--color-main-font);
 }
 
-/* --color-main-font, --color-second-font */
+/* Filter Box */
+.containerFilterOption{
+    position: absolute;
+    transform: translate3d(-3rem, 8.3rem, 0);
+    box-shadow:  
+        .2rem .2rem .8rem 0 var(--color-background-site),
+        -.2rem -.2rem .8rem 0 var(--color-background-site);
+    border-radius: 1rem;
+    background-color: var(--color-background-invoiceOverview);
+    padding: 2rem;
+    padding-bottom: .7rem;
+    display: block;
+
+}
+
+.containerFilterOptionsLine{
+    width: 9rem;
+    display: flex;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.containerFilterOptionsCheckBox{
+    height: 1.5rem;
+    background-color: var(--color-background-site);
+    border-radius: .2rem;
+    aspect-ratio: 1;
+}
+
+.containerFilterOptionsName{
+    margin-left: 1.5rem;
+}
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}

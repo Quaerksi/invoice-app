@@ -19,7 +19,6 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
     const refDropdownMenu = useRef<HTMLUListElement>(null)
 
     const {themeMode} = useThemeContext();
-    console.log(`Theme mode: ${themeMode}`)
 
         // handle dropbdown font color on theme switch
         useEffect(() => {
