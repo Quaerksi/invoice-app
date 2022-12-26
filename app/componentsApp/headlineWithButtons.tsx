@@ -1,13 +1,13 @@
 "use client"
 
-import design from '../styles/designsystem.module.css'
+import design from '../../styles/designsystem.module.css'
 import styles from './headlineWithButtons.module.css'
 
 import React, { useRef, useEffect } from "react";
 
 // Context
-import { useThemeContext } from '../app/useThemeContext'
-import { useFilterContext } from '../context/useFilterContext'
+import { useThemeContext } from '../../context/useThemeContext'
+import { useFilterContext } from '../../context/useFilterContext'
 
 import Image from 'next/image'
 

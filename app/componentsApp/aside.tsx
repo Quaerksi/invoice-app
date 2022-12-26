@@ -2,10 +2,9 @@
 
 import styles from './aside.module.css'
 import Image from 'next/image'
-// import  {useEffect} from "react";
 
 // Context theme
-import { useThemeContext } from '../app/useThemeContext'
+import { useThemeContext } from '../../context/useThemeContext'
 
 export default function Aside() {
 

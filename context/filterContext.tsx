@@ -11,8 +11,6 @@ export const FilterProvider = ({ children }: ThemeProviderProps) => {
 
      const [filterMode, setFilterMode] = useState<string>('all')
 
-     console.log(`theme context ${filterMode}`)
-
     return (
       <FilterContext.Provider value={{ filterMode, setFilterMode }}>
         {children}

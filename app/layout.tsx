@@ -1,14 +1,14 @@
 "use client"
 
 import '../styles/design-tokens.css'
-import '../styles/globals.css'
+import '/styles/globals.css'
 import styles from './layout.module.css'
 import { League_Spartan} from '@next/font/google'
 
 // Context theme
 import { ThemeProvider } from '../context/themeContext'
 // component
-import Aside from "../components/aside"
+import Aside from "./componentsApp/aside"
 
 
 // Fallback fonts neccesary here?
@@ -24,8 +24,6 @@ export default function Layout({ children }: {
     return (
       <html lang="en">
         <head>
-          <title>Next.js</title>
-          <meta property="custom" content="I am in every page even 404" />
           {/* The <style> element will be supported in the future */}
           {/* <style jsx global>{`
               html {

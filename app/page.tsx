@@ -8,8 +8,8 @@ import useSWR from 'swr'
 // unnecessary way via the API, but then I would be back in the clientIch könnte die DB Methoden mittels der Hooks useEffect und useState direkt aufrufen, so würde ich mir
 
 import styles from './landingpage.module.css'
-import Headline from '../components/headlineWithButtons'
-import InvoiceOverview from '../components/invoiceOverview'
+import Headline from './componentsApp/headlineWithButtons'
+import InvoiceOverview from './componentsApp/invoiceOverview'
 
 // Context filter
 import { FilterProvider } from '../context/filterContext'
@@ -33,6 +33,7 @@ export default function Page() {
            <li key={invoice.id}>{invoice.clientName}</li>
          ))} */}
          <FilterProvider>
+             
          <Headline countInvoices={data?.length}/>
          {
              allInvoices

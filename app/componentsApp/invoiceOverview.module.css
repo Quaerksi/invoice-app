@@ -6,6 +6,11 @@
     border-radius: var(--border-radius);
     margin-top: 2rem;
     background-color: var(--color-background-invoiceOverview);
+    cursor: pointer;
+}
+
+.container:hover{
+    outline: 1px solid var(--color-dark-purple)
 }
 
 .imageArrow{

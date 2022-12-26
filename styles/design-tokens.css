@@ -21,8 +21,12 @@
   }
 
   [data-theme="light"]{
+
+    /* homepage */
+    --color-main-font: var(--color-black);
+    --color-second-font: var(--color-dark-gray);
     --color-background-site: #F2F2F2;
-    --color-font-site: var(--color-black);
+
     /* button 3 */
     --color-background-button3: var(--color-button-white);
     --color-background-button3-hover: var(--color-light-gray);
@@ -41,20 +45,20 @@
     --radius-form: .5rem;
     --color-background: white;
 
-    /* homepage */
-    --color-main-font: var(--color-black);
-    --color-second-font: var(--color-dark-gray);
-
     /* invoice overview */
     --color-background-invoiceOverview: #FFF;
   }
 
   [data-theme="dark"]{
+    
+    /* homepage */
+    --color-main-font: white;
+    --color-second-font: var(--color-light-gray);
     --color-background-site: var(--color-light-black);
-    --color-font-site: var(--color-white);
+
     /* button 3 */
     --color-background-button3: var(--color-anthrazit);
-    --color-background-button3-hover: var(--color-button-white);
+    --color-background-button3-hover: var(--color-button-dark);
     --color-font-button3: var(--color-light-gray);
 
     /* button 4 */
@@ -68,10 +72,6 @@
     --radius-form: .5rem;
     --color-background: var(--color-light-black);
     /* --color-background-datepicker: var() */
-
-    /* homepage */
-    --color-main-font: white;
-    --color-second-font: var(--color-light-gray);
 
     /* invoice overview */
     --color-background-invoiceOverview: var( --color-anthrazit);

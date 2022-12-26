@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
 // Context theme
-import { useThemeContext } from '../app/useThemeContext'
+import { useThemeContext } from '../context/useThemeContext'
 
 interface dropdownValues {
     name: string,

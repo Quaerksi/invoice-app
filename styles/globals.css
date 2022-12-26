@@ -12,8 +12,9 @@ body {
   line-height: 15px;
   letter-spacing: -.23px;
   background-color: var(--color-background-site);
-  color: var(--color-font-site);
+  color: var(--color-main-font);
 } 
+
 
 button{
   all: unset;

@@ -1,8 +1,8 @@
 "use client"
 
 import styles from './designsystem.module.css'
-import '../../styles/globals.css'
-import React, {createContext, useState} from 'react'
+// import '../../styles/globals.css'
+import React, { useState} from 'react'
 import DropdownDefault from '../../components/dropdownDefault'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
