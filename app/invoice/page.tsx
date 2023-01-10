@@ -1,15 +1,8 @@
-// "use client"
+"use client"
 
 import styles from './viewInvoice.module.css'
 import invoiceOverview from '../../app/componentsApp/invoiceOverview.module.css'
-import { useRouter} from 'next/router'
-
 import  PaidPendingDraft from '../../components/paidPendingDraft'
-
-// for layout
-import type { NextPageWithLayout } from '../_app'
-import Layout from '../layout'
-import type { ReactElement } from 'react'
 
 import Image from 'next/image'
 import ActionField from './componentsViewInvoice/actionField'
@@ -22,38 +15,59 @@ import Moment from 'react-moment'
 
 import Link from 'next/link'
 
+import { useSearchParams } from 'next/navigation';
+
+import UpdateForm from './componentsUpdateInvoice/updateForm'
+
+import React, {useState, useEffect} from 'react';
+
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-const Page: NextPageWithLayout = () => {
+export default function Page() {
 
-    const router = useRouter()
-    const invoiceId = router.query.invoiceID as string
+    const [update, setUpdate] = useState<boolean>(true);
+
+    useEffect(() => {
+        console.log(`Update: ${update}`)
+      }, [update])
+    
+    const searchParams = useSearchParams();
 
      // call to my api, read data from DB
-     const {data, error} = useSWR<Invoice>(`/api/invoices/${invoiceId}`, fetcher)
+     const {data, error} = useSWR<Invoice>(`/api/invoices/${searchParams.get('id')}`, fetcher)
 
      if (error) return <div>Failed to load users</div>
      if (!data) return <div>Loading...</div>
- 
-     console.log(`Data items: ${data.items}`)
+
+    const updateInvoice = async () => {
+       const response = await fetch(`/api/invoices/${data.id}`, {
+       method: "PUT",
+        // body: JSON.stringify(newTodo),
+       headers: {
+            "Content-Type": "application/json",
+        },
+        });
+        
+        // const data = await response.json();
+        // settodos(data);
+        };
 
     return(
         <>
-            {/* <p>InvoiceId: {invoiceId}</p> */}
-            {/* back button */}
-            <div className={`${styles.btnGoBack}`}>
-                <Image
-                    src="/assets/icon-arrow-left.svg"
-                    alt="arrow down"
-                    width={8}
-                    height={8}
-                    priority={true}
-                />
-                <Link href={`/`}>
-                    <h2>Go back</h2>
-                </Link>
-            </div>
+            {update && <UpdateForm id={data.id}/>}
+            <Link href={`/`}>
+                <div className={`${styles.btnGoBack}`}>
+                    <Image
+                        src="/assets/icon-arrow-left.svg"
+                        alt="arrow down"
+                        width={8}
+                        height={8}
+                        priority={true}
+                    />
+                        <h2>Go back</h2>
+                </div>
+            </Link>
             <div className={`${styles.statusOutside} ${invoiceOverview.containerDesign}`}>
                 
                 <div className={`${styles.status}`} >
@@ -63,7 +77,7 @@ const Page: NextPageWithLayout = () => {
                     <PaidPendingDraft name='draft'/> {/* 110×42.9 */}
                 </div>
                 <div className={` ${styles.actionField} ${styles.actionFieldTop}`}>
-                    <ActionField />
+                    <ActionField setUpdate={setUpdate}/>
                 </div>
             </div>
             <div className={`${invoiceOverview.containerDesign}`}>
@@ -71,7 +85,7 @@ const Page: NextPageWithLayout = () => {
                     {/* grid */}
                     <div className={`${styles.gridContainerId}`}>
                         <h2 className={`${styles.id}`}>{data.id}</h2>
-                        <p className={`${styles.description}  ${styles.colorThirdFont}`}>Graphic Design</p>
+                        <p className={`${styles.description}  ${styles.colorThirdFont}`}>{data.description}</p>
                     </div>
                     <div className={`${styles.gridContainerAdress}`}>
                         <span className={`${styles.span} ${styles.colorThirdFont}`}>{data.senderAddress?.street}</span>
@@ -113,19 +127,8 @@ const Page: NextPageWithLayout = () => {
                  
             </div>
             <div className={`${invoiceOverview.containerDesign} ${styles.actionField} ${styles.actionFieldBottom}`}>
-                <ActionField />
+            <ActionField setUpdate={setUpdate}/>
             </div>
         </>
     )
 }
-
-
-Page.getLayout = function getLayout(page: ReactElement) {
-    return (
-     <Layout>
-        {page}{/* <NestedLayout>{page}</NestedLayout> */}
-      </Layout> 
-    )
-  }
-  
-export default Page

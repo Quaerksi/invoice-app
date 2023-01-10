@@ -1,5 +1,6 @@
 html,
 body {
+
   padding: 0;
   margin: 0;
   min-width: 300px;
@@ -10,7 +11,7 @@ body {
   /* Attention 1rem -> 11px */
   font-size: 11px;
   line-height: 15px;
-  letter-spacing: -.23px;
+  /* letter-spacing: -.23px; */
   background-color: var(--color-background-site);
   color: var(--color-main-font);
 } 
@@ -30,7 +31,7 @@ h1{
 }
 
 h2{
-  font-variation-settings: 'wght' 700;
+  font-variation-settings: 'wght' 600;
   font-size: 16px;
   line-height: 18px;
   letter-spacing: -.63px;
@@ -44,8 +45,8 @@ h3{
   letter-spacing: .7px;
 }
 
-@media(min-width: 500px){
-/* @media(min-width: 768px){ */
+/* @media(min-width: 500px){ */
+@media(min-width: 768px){
   /* @media(min-width: 48em){ */
 
   /* not totaly clear now where to use exactly: Body1 & H3-1 */

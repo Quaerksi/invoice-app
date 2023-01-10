@@ -55,6 +55,56 @@ export const invoiceById = async (id:String):Promise<Invoice | String> => {
     return '';
 }
 
+//update user
+export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
+    
+    try { 
+        const client = await clientPromise;
+        const db = client.db("challenge");
+
+        let items = new Array()
+
+          anInvoice.items?.forEach(c => 
+            items.push(
+            {
+                "name": `${c.name}`,
+                "quantity": c.quantity,
+                "price": c.price,
+                "total": c.total
+            }
+        ))
+
+        const invoice = await db
+            .collection("ivoices")
+                .updateOne({ id: `${anInvoice.id}`}, { $set: { 
+                "senderAddress": {
+                    "street": `${anInvoice.senderAddress?.street}`,
+                    "city": `${anInvoice.senderAddress?.city}`,
+                    "postCode": `${anInvoice.senderAddress?.postCode}`,
+                    "country": `${anInvoice.senderAddress?.country}`
+                  },
+                "clientName": `${anInvoice.clientName}`,
+                "clientEmail": `${anInvoice.clientEmail}`,
+                "clientAddress": {
+                    "street": `${anInvoice.clientAddress?.street}`,
+                    "city": `${anInvoice.clientAddress?.city}`,
+                    "postCode": `${anInvoice.clientAddress?.postCode}`,
+                    "country": `${anInvoice.clientAddress?.country}`
+                  },
+                  "paymentTerms": `${anInvoice.paymentTerms}`,
+                  "description": `${anInvoice.description}`,
+                  items,
+
+            } })
+
+            return true;
+    }
+    catch(e) {
+        console.error(e);
+    }
+
+    return false;
+}
 
 // Create, read, update, and delete invoices
 // Save draft invoices, and mark pending invoices as paid

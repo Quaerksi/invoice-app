@@ -37,13 +37,8 @@ export default function InvoiceOverview(prop: Props) {
 
     return (
         <>
-        {show && 
-            <Link href={`/invoice/${prop?.invoice?.id}`}>
-            {/* <Link href={{ */}
-            {/* pathname: '/viewInvoice/[slug]', */}
-            {/* query: { slug: prop?.invoice?.id}, */}
-            {/* }}> */}
-                <div className={`${styles.container}`}>
+        {show && <Link href={`invoice?id=${prop?.invoice?.id}`}>
+                <div className={`${styles.container} ${styles.containerDesign}`}>
                     <div className={`${styles.containerLeftSite}`}>
                         <h2><span className={`${styles.span}`}>#</span>{prop?.invoice?.id}</h2>
                         <p className={`${styles.p}`}>Due  &nbsp;

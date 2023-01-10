@@ -41,7 +41,7 @@ export default function Headline(prop: Props) {
                         if(themeMode === 'light'){
                             checkBox.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-light-gray')
                         } else if (themeMode === 'dark'){
-                            checkBox.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-light-black')
+                            checkBox.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--color-gray-black')
                         }   
                     }
                 }
@@ -141,19 +141,13 @@ export default function Headline(prop: Props) {
                         <button className={`${design.btn} ${design.btn3Color} `}> 
                                 <div className={` ${design.btn1} ${design.btnFlex} ${styles.btnWithArrow}`}>
                                     Filter
-                                    <Image
-                                        src="/assets/icon-arrow-down.svg"
-                                        alt="arrow down"
-                                        width={8}
-                                        height={8}
-                                        priority={true}
-                                    />
+                                    {/* CheckBox */}
                                 </div> 
                         </button>
                     </h3>
                     <div ref={checkBox} style={{display: 'none'}} className={`${styles.containerFilterOption}`}>
                         <div onClick={containerFilterOptionsLineOnClick} onMouseEnter={containerFilterOptionsLineOnMouseEnter} onMouseLeave={containerFilterOptionsLineOnMouseLeave} className={`${styles.containerFilterOptionsLine}`}>
-                            <div  className={`${styles.containerFilterOptionsCheckBox}`}></div>
+                            <div className={`${styles.containerFilterOptionsCheckBox}`}></div>
                             <span className={`hallo ${styles.containerFilterOptionsName}`}>Draft</span>
                         </div>
                         <div  onClick={containerFilterOptionsLineOnClick} onMouseEnter={containerFilterOptionsLineOnMouseEnter} onMouseLeave={containerFilterOptionsLineOnMouseLeave} className={`${styles.containerFilterOptionsLine}`}>

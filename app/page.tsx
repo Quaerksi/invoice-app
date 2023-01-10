@@ -15,6 +15,7 @@ import InvoiceOverview from './componentsApp/invoiceOverview'
 import { FilterProvider } from '../context/filterContext'
 
 
+
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
@@ -33,13 +34,10 @@ export default function Page() {
            <li key={invoice.id}>{invoice.clientName}</li>
          ))} */}
          <FilterProvider>
-             
          <Headline countInvoices={data?.length}/>
          {
              allInvoices
          }
          </FilterProvider>
     </div>
-    
-
 }

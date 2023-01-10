@@ -36,6 +36,7 @@
     padding: 2rem;
     padding-bottom: .7rem;
     display: block;
+    z-index: 99;
 
 }
 
@@ -51,6 +52,7 @@
     background-color: var(--color-background-site);
     border-radius: .2rem;
     aspect-ratio: 1;
+    z-index: 1000;
 }
 
 .containerFilterOptionsName{

@@ -16,16 +16,20 @@
     --color-button-dark: hsl(231, 20%, 27%); /* #373B53 */
     --color-button-light-red: hsl(0, 100%, 79%);/* #FF9797 */
 
-    --background-color-header: #494E6E;
-    --border-radius: 2rem;
+    
+    --border-radius: 1.5rem;
   }
 
   [data-theme="light"]{
 
     /* homepage */
+    --background-color-header: var(--color-button-dark);
     --color-main-font: var(--color-black);
     --color-second-font: var(--color-dark-gray);
+    --color-third-font: var(--color-blue-gray);
+    --color-fourth-font: var(--color-blue-gray);
     --color-background-site: #F2F2F2;
+    --color-background-edit: #FFF;
 
     /* button 3 */
     --color-background-button3: var(--color-button-white);
@@ -47,14 +51,21 @@
 
     /* invoice overview */
     --color-background-invoiceOverview: #FFF;
+
+    /* table */
+    --color-background-table: var(--color-button-white);
   }
 
   [data-theme="dark"]{
     
     /* homepage */
+    --background-color-header: var(--color-light-black);
     --color-main-font: white;
     --color-second-font: var(--color-light-gray);
-    --color-background-site: var(--color-light-black);
+    --color-third-font: var(--color-light-gray);
+    --color-fourth-font: var(--color-dark-gray);
+    --color-background-site: var(--color-gray-black);
+    --color-background-edit: var(--color-gray-black);
 
     /* button 3 */
     --color-background-button3: var(--color-anthrazit);
@@ -74,5 +85,8 @@
     /* --color-background-datepicker: var() */
 
     /* invoice overview */
-    --color-background-invoiceOverview: var( --color-anthrazit);
+    --color-background-invoiceOverview: var(--color-light-black);
+
+    /* table */
+    --color-background-table: var(--color-anthrazit);
   }

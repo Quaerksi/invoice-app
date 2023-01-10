@@ -27,5 +27,6 @@ export type Invoice = {
             "price": number,
             "total": number
     }[];
-    total: number;}
+    total: number;
+  }
 }

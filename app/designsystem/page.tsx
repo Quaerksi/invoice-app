@@ -1,18 +1,16 @@
 "use client"
 
 import styles from './designsystem.module.css'
-// import '../../styles/globals.css'
 import React, { useState} from 'react'
 import DropdownDefault from '../../components/dropdownDefault'
 import DatePicker, {registerLocale} from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css"
 import de from 'date-fns/locale/de';
 registerLocale('de', de);
 
 export default function Page() {
 
     const [startDate, setStartDate] = useState(new Date());
-
 
   return   (     
     <>
@@ -95,7 +93,7 @@ export default function Page() {
         <div className={`${styles.order}`}>
             <div>
                 <form className={`${styles.form}`} action="" method="post">
-                    <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']}/>
+                        <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']} defaultValue={`Next 1 day`}/>
                     
                         <h3>Text Field</h3>
                         <label  htmlFor="adress">Street Address:</label>

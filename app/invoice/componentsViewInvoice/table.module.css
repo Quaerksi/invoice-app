@@ -1,0 +1,58 @@
+/* start table */
+.table{
+    display: block;
+    width: 100%;
+    margin-block: 1rem;
+    background-color: var(--color-background-table);
+    border-radius: 1rem;
+    margin-top: 3rem;
+}
+.table>*{
+    display: inline-block;
+    width: 100%;
+}
+
+.table>*>*{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.1rem;
+    padding-inline: 1.3rem;
+    
+}
+
+.tableSum{
+    margin-top: 1.1rem;
+    background-color: var(--color-black);
+    border-radius: 0 0 1rem 1rem;
+    color: white;
+    padding-block: 2rem;
+}
+
+.span{
+    display: block;
+}
+
+.seeOnSmallScreen{
+    display: block;
+}
+
+.seeOnBigScreen{
+    display: none;
+}
+
+@media(min-width: 768px){
+
+    .seeOnSmallScreen{
+        display: none;
+    }
+    
+    .seeOnBigScreen{
+        display: inline-block;
+    }
+
+    .seeOnBigScreen>*:first-child{
+        /* text-align: start; */
+    }
+}
+/* end table */

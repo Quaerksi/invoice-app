@@ -31,16 +31,25 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
                         // return null or an invoice
                         res.status(200).json(result)
                       })
-                      .catch(error => res.status(400).end(`Something went wrong [id].ts catch`))
+                      .catch(error => res.status(400).end(`Something went wrong [id].ts catch GET`))
                     
                     break
                 case 'PUT':
-                    console.log(`put`)
-                    // Update or create data in your JSON File
-                    res.status(200).json('in progress')
+                    console.log(`put ${req.body.id}`)
+                    let itWorked = Methods.updateInvoice(req.body)
+
+                    itWorked.then(result => {
+                        res.status(200).json('update')
+                    })
+                    .catch(error => res.status(400).end(`Something went wrong [id].ts catch PUT`))
+                    
                     break
+                case 'DELETE':
+                    console.log(`delete`)
+                    res.status(200).json('delete')
+                break
                 default:
-                    res.setHeader('Allow', ['GET', 'PUT'])
+                    res.setHeader('Allow', ['GET', 'PUT', 'DELETE'])
                     res.status(405).end(`Method ${method} Not Allowed`)
                 }
             }   

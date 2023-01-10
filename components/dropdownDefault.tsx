@@ -10,13 +10,14 @@ import { useThemeContext } from '../context/useThemeContext'
 
 interface dropdownValues {
     name: string,
-    elements: string[]
+    elements: string[],
+    defaultValue: string
 }
 
-export default function DropdownDefault({name, elements}: dropdownValues)  {
-
+export default function DropdownDefault({name, elements, defaultValue="Next 1 Day"}: dropdownValues)  {
     const refDropdown = useRef<HTMLDivElement>(null);
     const refDropdownMenu = useRef<HTMLUListElement>(null)
+    const refInput = useRef<HTMLInputElement>(null);
 
     const {themeMode} = useThemeContext();
 
@@ -92,10 +93,10 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
         let target = e.currentTarget
         let letRefDropdown = refDropdown.current
         let letRefDropdownMenu = refDropdownMenu.current
+        let input = refInput.current
 
-        if(letRefDropdown && letRefDropdown.firstElementChild && target.firstElementChild && letRefDropdownMenu){
-            // letRefDropdown.firstElementChild.textContent = target.firstElementChild.textContent
-            letRefDropdown.firstElementChild.setAttribute('value', target.firstElementChild.textContent || '');
+        if(letRefDropdown && letRefDropdown.firstElementChild && target.firstElementChild && letRefDropdownMenu && input){
+            input.value = `${target.firstElementChild.textContent || ''}`;
             
             letRefDropdown.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--color-form-border')
             letRefDropdownMenu.style.display = 'none';
@@ -130,13 +131,11 @@ export default function DropdownDefault({name, elements}: dropdownValues)  {
     const typedArray:React.ReactElement[] = elements.map((name, index, arr) => <li key={`dropdown-${index}`} onClick={handleDropdownMethod} onMouseEnter={dropdownColorTextOnEnter} onMouseLeave={dropdownColorTextOnLeave}><span>{name}</span></li>)
     
     return <div>
-                <h3>Dropdown Default</h3>
                 <div className={`${styles.dropdown}`} >
                     <label htmlFor='dropdown'>{name}:</label>
                     
                     <div ref={refDropdown} className={`${styles.dropdownLabel}`} onClick={openDropdownMenu} onMouseEnter={openDropdownMenuBorderColorOnEnter} onMouseLeave={openDropdownMenuBorderColorOnLeave}>
-                        {/* <span> Next 1 Day </span> */}
-                        <input className={`${styles.inputValue}`} value="Next 1 Day" readOnly></input>
+                        <input ref={refInput} className={`${styles.inputValue}`} value={`${defaultValue}`} readOnly></input>
                         <Image
                             src="/assets/icon-arrow-down.svg"
                             alt="arrow down symbol"

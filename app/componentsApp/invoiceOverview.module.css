@@ -1,11 +1,15 @@
-.container{
-    display: flex;
-    justify-content: space-between;
+.containerDesign{
+    
     padding: 2rem;
 
     border-radius: var(--border-radius);
     margin-top: 2rem;
     background-color: var(--color-background-invoiceOverview);
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
 }
 
@@ -65,12 +69,12 @@
     
 }
 
-@media(min-width: 500px){
+/* @media(min-width: 500px){
 
     .container{
       padding-inline: 4rem;
     }
-}
+} */
 
 @media(min-width: 768px){
 

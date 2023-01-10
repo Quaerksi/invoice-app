@@ -16,7 +16,5 @@ export default function handler(
 
     // return an array empty or with invoices
     res.status(200).json(result)
-  })
-
-  .catch(error => res.status(400).end(`Something went wrong allInvoices.ts catch`))
+  }).catch(error => res.status(400).end(`Something went wrong allInvoices.ts catch`))
 }

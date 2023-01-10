@@ -3,7 +3,7 @@
     display: inline-block;
     height: 3.2rem;
     background-color: var(--var-background);
-    border-radius: 2rem; 
+    border-radius: 1.5rem; 
     cursor: pointer;
 }
 
