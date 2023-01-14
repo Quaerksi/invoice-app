@@ -1,0 +1,47 @@
+.container{
+    display: grid;
+    grid-template-columns: 15% 30% 30% 10%;
+    grid-column-gap: 1.2rem;
+    grid-row-gap: 1rem;
+    grid-template-areas: 
+        'name name name name'
+        'qty price total del';
+}
+
+.name{
+    grid-area: name;
+}
+
+.qty > *{
+    grid-area: qty;
+    width: 100%;
+}
+
+.price > *{
+    grid-area: price;
+    width: 100%;
+}
+
+.total > *{
+    grid-area: total;
+    width: 100%;
+    border: none;
+    color: var(--color-dark-gray)
+}
+
+.del{
+    grid-area: del;
+    justify-self: center;
+    align-self: end;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+.input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.input[type="number"]:hover,
+.input[type="number"]:focus {
+    -moz-appearance: number-input;
+}

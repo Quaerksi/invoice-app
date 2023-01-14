@@ -26,11 +26,12 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Page() {
 
+    // TO DO: Handle empty and wrong Invoice Id
     const [update, setUpdate] = useState<boolean>(true);
-
-    useEffect(() => {
-        console.log(`Update: ${update}`)
-      }, [update])
+    // console.log(`In invoice ${update}`)
+    // useEffect(() => {
+    //     console.log(`Update: ${update}`)
+    //   }, [update])
     
     const searchParams = useSearchParams();
 
@@ -40,22 +41,9 @@ export default function Page() {
      if (error) return <div>Failed to load users</div>
      if (!data) return <div>Loading...</div>
 
-    const updateInvoice = async () => {
-       const response = await fetch(`/api/invoices/${data.id}`, {
-       method: "PUT",
-        // body: JSON.stringify(newTodo),
-       headers: {
-            "Content-Type": "application/json",
-        },
-        });
-        
-        // const data = await response.json();
-        // settodos(data);
-        };
-
     return(
         <>
-            {update && <UpdateForm id={data.id}/>}
+            {update && <UpdateForm id={data.id} edit={false}/>}
             <Link href={`/`}>
                 <div className={`${styles.btnGoBack}`}>
                     <Image

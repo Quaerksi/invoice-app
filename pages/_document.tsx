@@ -22,7 +22,7 @@ export  default class customDocument extends Document  {
               <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true' />
               <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600&display=swap" rel="stylesheet" />
             </Head>
-            <body style={{fontFamily: `'League Spartan', sans-serif;`}} >
+            <body style={{fontFamily: `'League Spartan', sans-serif`}} >
             {/* <body style={{fontFamily: `'League Spartan', sans-serif;`}} className="theme-switch"> */}
               <Main />
               <NextScript />
