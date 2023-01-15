@@ -5,8 +5,6 @@
     /* bottom: 0; */
     padding: 2rem;
     background-color: var(--color-background-edit);
-    /* background-color: green; */
-    border: 2px solid green;
     position: absolute;
     min-width: 300px;
 }
@@ -75,4 +73,12 @@
 .itemListHeadline{
     padding-top: 2rem;
     color: #777F98;
+}
+
+.items > * {
+    margin-top: 2rem;
+}
+
+.btnAddNewItem{
+    width: 100%;
 }

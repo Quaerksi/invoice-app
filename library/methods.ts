@@ -57,22 +57,17 @@ export const invoiceById = async (id:String):Promise<Invoice | String> => {
 
 //update user
 export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
+    console.log(`Id lib: ${anInvoice.id}`)
+    let items;
+
+    if(anInvoice.items){
+        items = anInvoice.items
+        console.log(anInvoice.items)
+    }
     
     try { 
         const client = await clientPromise;
         const db = client.db("challenge");
-
-        let items = new Array()
-
-          anInvoice.items?.forEach(c => 
-            items.push(
-            {
-                "name": `${c.name}`,
-                "quantity": c.quantity,
-                "price": c.price,
-                "total": c.total
-            }
-        ))
 
         const invoice = await db
             .collection("ivoices")
@@ -93,7 +88,7 @@ export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
                   },
                   "paymentTerms": `${anInvoice.paymentTerms}`,
                   "description": `${anInvoice.description}`,
-                  items,
+                  items
 
             } })
 

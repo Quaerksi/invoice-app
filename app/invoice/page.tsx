@@ -43,7 +43,7 @@ export default function Page() {
 
     return(
         <>
-            {update && <UpdateForm id={data.id} edit={false}/>}
+            {update && <UpdateForm id={data.id} edit={true}/>}
             <Link href={`/`}>
                 <div className={`${styles.btnGoBack}`}>
                     <Image

@@ -20,9 +20,7 @@ export default function Table(props:Props) {
     let allItems:React.ReactElement[] = [];
 
     if(props.items){
-        props.items.forEach(c =>{console.log(`Items${c.total}Items`)
-        const price = 3
-        const quantity = 4
+        props.items.forEach(c =>{
         // {small screen}
         allItems.push(
             <tbody key={Math.random()} className={`${styles.seeOnSmallScreen}`}>

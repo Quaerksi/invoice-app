@@ -4,12 +4,23 @@ import styles from './item.module.css'
 import Image from 'next/image' 
 import { useRef, useEffect, useState } from 'react';
 
-export default function Item() {
+// {/* name, quantity, price, total */}
+
+interface Props {
+    name: string, 
+    quantity: number, 
+    price: number, 
+    total: number 
+}
+
+export default function Item(props:Props) {
     
     const deleteItem = useRef<HTMLDivElement>(null);
     const total = useRef<HTMLInputElement>(null);
-    const [qty, setQty] = useState<number>(0)
-    const [price, setPrice] = useState<number>(0)
+    const qtyRef = useRef<HTMLInputElement>(null);
+    const priceRef = useRef<HTMLInputElement>(null);
+    const [qty, setQty] = useState<number>(props.quantity)
+    const [price, setPrice] = useState<number>(props.price)
 
     useEffect(() => {    
         console.log('Changed') 
@@ -20,6 +31,18 @@ export default function Item() {
             inputElement.value = `${qty * price}`
         }
     }, [qty, price]);
+
+    useEffect(() => {   
+        let inputQty =  qtyRef.current
+        let inputPrice = priceRef.current
+
+        if(inputQty){
+            inputQty.value = `${qty}`
+        }
+        if(inputPrice){
+            inputPrice.value = `${price}`
+        }
+    }, []);
 
     let deleteThis = () => {
 
@@ -33,20 +56,20 @@ export default function Item() {
     return  <>
                 <div ref={deleteItem} className={`${styles.container}`}>
                     <div className={`${styles.name}`}>
-                        <label  htmlFor="adress">Item Name</label>
-                        <input className={`${designsystem.input}`} type="text" id="adress" name="adress" required/> 
+                        <label  htmlFor="itemName">Item Name</label>
+                        <input className={`${designsystem.input}`} type="text" id="itemName" name="itemName" defaultValue={props.name} required/> 
                     </div>
                     <div className={`${styles.qty}`}> 
                         <label  htmlFor="qty">Qty.</label>
-                        <input className={`${designsystem.input} ${styles.input}`} type="number" step="0.01" id="qty" name="qty" defaultValue={`0`} onChange={(e) => setQty(Number(e.target.value))} required/>   
+                        <input ref={qtyRef} className={`${designsystem.input} ${styles.input}`} type="number" step="0.01" id="qty" name="qty" onChange={(e) => setQty(Number(e.target.value))} required/>   
                     </div> 
                     <div className={`${styles.price}`}> 
                         <label  htmlFor="price">Price</label>
-                        <input className={`${designsystem.input} ${styles.input}`} type="number" step="0.01" id="price" name="price" defaultValue={`0`} onChange={(e) => setPrice(Number(e.target.value))} required/>
+                        <input ref={priceRef} className={`${designsystem.input} ${styles.input}`} type="number" step="0.01" id="price" name="price" onChange={(e) => setPrice(Number(e.target.value))} required/>
                     </div>
                     <div className={`${styles.total}`}> 
                         <label  htmlFor="total">Total</label>
-                        <input ref={total} className={`${designsystem.input} ${styles.input}`} type="number" step="0.01" id="total" name="total" defaultValue={`0`} required/>
+                        <input ref={total} className={`${designsystem.input} ${styles.input}`} type="number" step="0.01" id="total" name="total"  defaultValue={0} required/>
                     </div>
                     <div className={`${styles.del}`} onClick={deleteThis}>
                         <Image
