@@ -1,4 +1,30 @@
 .container{
     position: absolute;
-    
+    z-index: 998;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color:  rgba(0, 0, 0, 80%);
+}
+
+.popUpBox{
+    position: absolute;
+    background-color: var(--color-background-invoiceOverview);
+    padding-inline: 2rem;
+    max-width: 330px;
+    min-height: 200px;
+    border-radius: var(--border-radius);
+    left: calc(50% - (var(--layout-margin) / 2) - 165px);
+    top: calc(50% - (var(--layout-margin) / 2) - 100px);
+    z-index: 999;
+}
+
+.buttonPosition{
+    display: inline;
+    float: right;
+}
+
+.spaceButton{
+    margin-right: 1rem;
 }

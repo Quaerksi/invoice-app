@@ -21,7 +21,7 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
 
             switch (method) {
                 case 'GET':
-                    console.log(`Get`)
+                    // console.log(`Get`)
                     // Get data from your DB
                     let invoice = Methods.invoiceById(typedId);
 
@@ -48,8 +48,18 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
                     
                     break
                 case 'DELETE':
-                    console.log(`delete`)
-                    res.status(200).json('delete')
+                    // console.log(`delete ${req.body.id}`)
+                    // console.log(req.body)
+
+                    let libDelete = Methods.deleteInvoiceById(req.body.id)
+
+                    libDelete.then(result => {
+                        console.log(`delete back ${result}`)
+                        console.log(result)
+                        res.status(200).json('delete')
+                    })
+                    .catch(error => res.status(400).end(`Something went wrong [id].ts catch PUT`))
+                    
                 break
                 default:
                     res.setHeader('Allow', ['GET', 'PUT', 'DELETE'])

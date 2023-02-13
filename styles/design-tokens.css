@@ -18,6 +18,7 @@
 
     
     --border-radius: 1.5rem;
+    --layout-margin: 10vw;
   }
 
   [data-theme="light"]{

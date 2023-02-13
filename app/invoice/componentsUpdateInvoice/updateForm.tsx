@@ -63,6 +63,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 // QUESTION: Is ot good to fetch data again for avoiding conflict or is it better to push data as param for less traffic
 // at the moment: fetch data again for avoiding conflict (more code as well)
 // TO DO: handle this file for - create new invoice
+// TO DO: make draft possible -> If not all fields are filled out, it is a draft
 export default function UpdateForm(params:Params) {
 
     const [startDate, setStartDate] = useState(new Date('21 Aug 2021'));
@@ -163,6 +164,7 @@ export default function UpdateForm(params:Params) {
                     "paymentTerms": 1,
                     "clientName": `${clientName != '' ? clientName : dataInvoice.clientName}`,
                     "clientEmail": `${clientEmail != '' ? clientEmail : dataInvoice.clientEmail}`,
+                    "status": `pending`,
                     "senderAddress": {
                     "street": `${senderStreet != '' ? senderStreet : dataInvoice.senderAddress?.street}`,
                     "city": `${senderCity != '' ? senderCity : dataInvoice.senderAddress?.city}`,

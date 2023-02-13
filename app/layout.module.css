@@ -12,7 +12,7 @@
   .content{
     /* margin-inline: auto; */
     /* width: clamp(600px, 80%, 800px) */
-    margin-inline: 10vw;
+    margin-inline: var(--layout-margin);
   }
 }
 

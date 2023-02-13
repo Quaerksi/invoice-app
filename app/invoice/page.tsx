@@ -17,28 +17,21 @@ import Moment from 'react-moment'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation';
 import React, {useState, useEffect, useRef} from 'react';
-import{useRouter} from 'next/navigation'
 
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-export default function Page() {
 
-    const router = useRouter()
+export default function Page() {
 
     const searchParams = useSearchParams();
     // const searchId = searchParams.get('id')
 
     // TO DO: Handle empty and wrong Invoice Id
     const [update, setUpdate] = useState<boolean>(false);
+    const [deleteInvoice, setDeleteInvoice] = useState<boolean>(false);
 
     const refBackground = useRef(null);
-
-    useEffect(() => {
-        router.refresh()
-    }, [])
-    
-    //   setTimeout(() => router.replace(`/invoice?id=${'TY9141'}`), 5000)
 
     const {data, error} = useSWR<Invoice>(`/api/invoices/${searchParams.get('id')}`, fetcher)
         
@@ -48,7 +41,7 @@ export default function Page() {
 
     return(
         <>
-        <PopUpBox />
+        {deleteInvoice && <PopUpBox setDeleteInvoice={setDeleteInvoice} id={data.id}/>}
         <div ref={refBackground} className={`${styles.background}`}></div>
         <div  className={`${styles.container}`}>
                 {update && <UpdateForm id={data.id} edit={true} setUpdate={setUpdate} update={update} />}
@@ -69,11 +62,15 @@ export default function Page() {
                     <div className={`${styles.status}`} >
                         {/* status */}
                         <h3 className={`${styles.statusH3} ${styles.colorThirdFont}`}>Status</h3>
+                        
                         {/* Pending / draft / paid */}
-                        <PaidPendingDraft name='draft'/> {/* 110×42.9 */}
+                        {/* 110×42.9 */}
+                        {data.status === 'draft' && <PaidPendingDraft name='draft'/>} 
+                        {data.status === 'pending' && <PaidPendingDraft name='pending'/>}
+                        {data.status === 'paid' && <PaidPendingDraft name='paid'/>}
                     </div>
                     <div className={` ${design.actionField} ${design.actionFieldTop}`}>
-                        <ActionField setUpdate={setUpdate}/>
+                        <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice}/>
                     </div>
                 </div>
                 <div className={`${design.containerDesign}`}>
@@ -123,7 +120,7 @@ export default function Page() {
                     
                 </div>
                 <div className={`${design.containerDesign} ${design.actionField} ${design.actionFieldBottom}`}>
-                    <ActionField setUpdate={setUpdate}/>
+                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice}/>
                 </div>
                 </div>
         </>
