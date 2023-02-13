@@ -1,10 +1,7 @@
-.btnGoBack{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 9rem;
-    cursor: pointer;
-    color: var(--color-first-font)
+
+.container{
+    position: relative;
+    z-index: 101;
 }
 
 .status{
@@ -116,41 +113,3 @@
 
 /* end main */
 
-/* start action field */
-
-.actionField{
-    padding: 1rem !important;
-    display: flex;
-    justify-content: space-between;
-}
-
-.actionFieldTop{
-    display: none;
-    padding: 0rem !important;
-    margin: 0 !important;
-    
-}
-
-.actionFieldTop > *{
-    margin-right: 1rem;
-}
-
-@media(min-width: 768px){
-
-    .actionFieldBottom{
-        display: none;
-    }
-
-    /* .actionField{
-        padding: 0rem !important;
-    } */
-
-    .actionFieldTop{
-        display: flex;
-        /* padding: 0rem !important; */
-    }
-
-    
-}
-
-/* end action field */

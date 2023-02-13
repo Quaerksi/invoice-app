@@ -157,3 +157,59 @@ div.order2 > h3 {
     margin-right: 3rem;
     
 }
+
+.btnGoBack{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 9rem;
+    cursor: pointer;
+    color: var(--color-first-font)
+}
+
+
+.containerDesign{
+    
+    padding: 2rem;
+
+    border-radius: var(--border-radius);
+    margin-top: 2rem;
+    background-color: var(--color-background-invoiceOverview);
+}
+
+/* start action field */
+
+.actionField{
+    padding: 1rem !important;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.actionFieldTop{
+    display: none;
+    padding: 0rem !important;
+    margin: 0 !important;
+}
+
+.actionFieldTop > *{
+    margin-right: 1rem;
+}
+
+@media(min-width: 768px){
+
+    .actionFieldBottom{
+        display: none;
+    }
+
+    /* .actionField{
+        padding: 0rem !important;
+    } */
+
+    .actionFieldTop{
+        display: flex;
+        /* padding: 0rem !important; */
+    }    
+}
+
+/* end action field */

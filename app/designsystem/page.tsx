@@ -1,12 +1,15 @@
 "use client"
 
-import styles from './designsystem.module.css'
+import styles from '../../styles/designsystem.module.css'
 import React, { useState} from 'react'
 import DropdownDefault from '../../components/dropdownDefault'
 import DatePicker, {registerLocale} from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import de from 'date-fns/locale/de';
 registerLocale('de', de);
+
+import Link from 'next/link';
+import Image from 'next/image'
 
 export default function Page() {
 
@@ -113,7 +116,18 @@ export default function Page() {
             </div>
         </div>
 
-        
+        <Link href={`/`}>
+            <div className={`${styles.btnGoBack}`}>
+                <Image
+                    src="/assets/icon-arrow-left.svg"
+                    alt="arrow down"
+                    width={8}
+                    height={8}
+                    priority={true}
+                />
+                    <h2>Go back</h2>
+            </div>
+        </Link>
 
     </>
     )

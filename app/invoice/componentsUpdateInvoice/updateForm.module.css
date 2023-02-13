@@ -1,12 +1,19 @@
 .container{
-    top: 0;
-    right: 0;
-    left: 0;
-    /* bottom: 0; */
-    padding: 2rem;
-    background-color: var(--color-background-edit);
+    background-color: var(--color-background-site);
     position: absolute;
-    min-width: 300px;
+    left: -2rem;
+    top: -2rem;
+    width: 100vw;
+    margin: auto;
+    z-index: 999 !important;
+}
+
+.form{
+    position: relative;
+    background-color: var(--color-background-edit);
+    padding: 3rem;
+    margin-bottom: 5rem;
+    box-shadow: 0 2rem 2rem  var(--color-background-edit);
 }
 
 .h1{
@@ -19,7 +26,6 @@
 }
 
 .inline > *{
-    /* display: inline-block; */
     width: 100%;
 }
 
@@ -62,7 +68,6 @@
 }
 
 .headline{
-    /* margin-top: 0; */
     margin-bottom: 0;
 }
 
@@ -81,4 +86,39 @@
 
 .btnAddNewItem{
     width: 100%;
+    margin-top: 2rem;
 }
+
+.buttonBar{
+    justify-content: flex-end !important;
+    gap: 2rem;
+    box-shadow: 0 0.5rem 2rem  var(--color-background-edit);
+    position: relative;
+    z-index:9999;
+}
+
+.h3{
+    margin: 0;
+}
+
+@media(min-width: 768px){
+
+    .form{
+        border-radius: var(--border-radius);
+    }
+    
+    .container{
+        max-width: 616px;
+        border-radius: var(--border-radius);
+        outline: 800px solid rgba(0, 0, 0, 80%);
+        left: -10vw;
+    } 
+
+    .buttonBar{
+        display: flex;
+    }
+}
+
+/* @media(min-width: 90rem){
+ 
+} */

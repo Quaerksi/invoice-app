@@ -1,3 +1,4 @@
+import type { Item }   from './item'
 
 export type Invoice = {
 
@@ -21,12 +22,6 @@ export type Invoice = {
           "postCode": string,
           "country": string
     };
-    items?: {
-         "name": string,
-            "quantity": number,
-            "price": number,
-            "total": number
-    }[];
+    items?: Item[];
     total: number;
-  }
 }

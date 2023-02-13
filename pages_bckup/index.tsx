@@ -3,7 +3,7 @@
 // import Link from 'next/link'
 // import styles from '../styles/Home.module.css'
 
-import type { Invoice } from '../interfaces'
+import type { Invoice } from '../interfaces/invoice'
 import useSWR from 'swr'
 import React, { Component, ErrorInfo, ReactNode } from "react";
 

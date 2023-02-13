@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Invoice } from '../../interfaces'
+import { Invoice } from '../../interfaces/invoice'
 import * as dbMethods from '../../library/methods'
 
 // developement URL http://localhost:3000/api/allInvoices

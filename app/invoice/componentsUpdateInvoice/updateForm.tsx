@@ -4,96 +4,89 @@ import designsystem from '../../../styles/designsystem.module.css'
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker, {registerLocale} from 'react-datepicker'
 
-import React, { useState, useRef, useEffect} from 'react'
+import React, { useState, useRef, useEffect, Dispatch, SetStateAction} from 'react'
 import DropdownDefault from '../../../components/dropdownDefault'
 import "react-datepicker/dist/react-datepicker.css"
 import de from 'date-fns/locale/de';
 registerLocale('de', de);
 
 import useSWR from 'swr'
-import type { Invoice } from '../../../interfaces'
-import Item from './item';
-import { data } from '../../../data/data';
+import type { Invoice } from '../../../interfaces/invoice'
+import type { Item } from '../../../interfaces/item'
+
+import ItemGUI from './itemGUI';
+
+import Link from 'next/link';
+import Image from 'next/image'
+
+import design from '../../../styles/designsystem.module.css'
 
 type Params = {
     id: String
     edit: Boolean
+    setUpdate: Dispatch<SetStateAction<boolean>>
+    update: Boolean
 }
 
-type stateString = string
+// an :Invoice dummy
+var dataInvoice:Invoice = {
+
+    "id": "",
+    "createdAt": `${new Date()}`,
+    "paymentDue": "",
+    "description": "",
+    "paymentTerms": 30,
+    "clientName": "",
+    "clientEmail": "",
+    "status": "draft",
+    "senderAddress": {
+      "street": "",
+      "city": "",
+      "postCode": "",
+      "country": ""
+    },
+    "clientAddress": {
+      "street": "",
+      "city": "",
+      "postCode": "",
+      "country": ""
+    },
+    "items": [
+    ],
+    "total": 0
+  }
+
 
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
+// QUESTION: Is ot good to fetch data again for avoiding conflict or is it better to push data as param for less traffic
+// at the moment: fetch data again for avoiding conflict (more code as well)
+// TO DO: handle this file for - create new invoice
 export default function UpdateForm(params:Params) {
 
     const [startDate, setStartDate] = useState(new Date('21 Aug 2021'));
     const [invoices, setInvoices] = useState<React.ReactElement[]>([])
+    
     // sender
-    const [senderStreet, setSenderStreet] = useState<stateString>('');
-    const [senderCity, setSenderCity] = useState<stateString>('');
-    const [senderPostCode, setSenderPostCode] = useState<stateString>('');
-    const [senderCountry, setSenderCountry] = useState<stateString>('');
+    const [senderStreet, setSenderStreet] = useState<string>('');
+    const [senderCity, setSenderCity] = useState<string>('');
+    const [senderPostCode, setSenderPostCode] = useState<string>('');
+    const [senderCountry, setSenderCountry] = useState<string>('');
     // client
-    const [clientName, setClientName] = useState<stateString>('');
-    const [clientEmail, setClientEmail] = useState<stateString>('');
-    const [clientStreet, setClientStreet] = useState<stateString>('');
-    const [clientCity, setClientCity] = useState<stateString>('');
-    const [clientPostCode, setClientPostCode] = useState<stateString>('');
-    const [clientCountry, setClientCountry] = useState<stateString>('');
+    const [clientName, setClientName] = useState<string>('');
+    const [clientEmail, setClientEmail] = useState<string>('');
+    const [clientStreet, setClientStreet] = useState<string>('');
+    const [clientCity, setClientCity] = useState<string>('');
+    const [clientPostCode, setClientPostCode] = useState<string>('');
+    const [clientCountry, setClientCountry] = useState<string>('');
     // project description
-    const [projectDescription, setProjectDescription] = useState<stateString>('');
+    const [projectDescription, setProjectDescription] = useState<string>('');
     // items
     const itemsRef = useRef<HTMLInputElement>(null);
 
-    //  useEffect(() => {
-    //     console.log(`Update: ${senderStreetAdress} , ${dataInvoice.senderAddress?.street}`)
-    //   }, [senderStreetAdress])
-
-    useEffect(() => {
-
-        let invoicesCurrent:React.ReactElement[] = []
-
-        try{
-            if(dataItems){
-                
-                invoicesCurrent = dataItems.map((item,index,arr) => <Item key={`item${index}`} name={`${item.name}`} quantity={item.quantity} price={item.price} total={item.total}/>)
-                setInvoices(invoicesCurrent)
-            }  
-        }catch(error){
-            console.error(`Error ${error}`);    
-        } 
-      }, [])
-
     // dummy for create new Invoice
-    // TO DO: create fitting id = letter letter number number number number
     var invoiceId:String = '1'
-    var dataInvoice:Invoice = {
-        "id": "XM9141",
-        "createdAt": `${new Date()}`,
-        "paymentDue": "",
-        "description": "",
-        "paymentTerms": 30,
-        "clientName": "",
-        "clientEmail": "",
-        "status": "draft",
-        "senderAddress": {
-          "street": "",
-          "city": "",
-          "postCode": "",
-          "country": ""
-        },
-        "clientAddress": {
-          "street": "",
-          "city": "",
-          "postCode": "",
-          "country": ""
-        },
-        "items": [
-        ],
-        "total": 0
-      }
-
     if(params.edit === true) {
 
         // call to my api, read data from DB
@@ -108,15 +101,40 @@ export default function UpdateForm(params:Params) {
         if (!data) return <div>Loading...</div>
     }
 
-    // TO DO: handle this file for - create new invoice
+    // catch invoice items
+    let dataItems:Array<Item> = [];
+    if(dataInvoice.items && typeof dataInvoice.items != typeof Array){
+
+      dataItems = dataInvoice.items
+    }  
+
+    // push invoice items to GUI
+    useEffect(() => {
+
+        let invoicesCurrent:React.ReactElement[] = []
+        try{
+            if(dataItems && dataItems.length != 0){
+                invoicesCurrent = dataItems.map((item,index,arr) => <ItemGUI key={`item${index}`} name={`${item.name}`} quantity={item.quantity} price={item.price} total={item.total}/>)
+                setInvoices(invoicesCurrent)
+            }  
+        }catch(error){
+            console.error(`Error ${error}`);    
+        } 
+      }, [])
+
+   let addNewItem = () => {
+           // key between 101 -1000
+           // TO DO: create fitting id = letter letter number number number number
+           const newNode:React.ReactElement = <ItemGUI key={Math.floor(Math.random()*(1000-100)+100)} name='' quantity={0} price={0} total={0}/>
+           setInvoices(thisArray => [...thisArray, newNode])
+   }
 
     const handleSubmit = async (event:React.FormEvent) => {
 
-        // TO DO: close form
         event.preventDefault();
 
         // handle items
-        // TO DO: performance?
+        // QUESTION: is this an appropriate performance
         let newItems = itemsRef.current
         let items= new Array()
         let newitemsArray = ''
@@ -160,27 +178,37 @@ export default function UpdateForm(params:Params) {
                     items
                     ,
                     "total": 102.04
-                }),
+               }),
                 headers: {
                         "Content-Type": "application/json",
                 },
             });
+
+            if(response.status == 200){
+         
+                location.reload() 
+            }
         }
     }
 
-    let dataItems = dataInvoice.items
-    
-
-    let addNewItem = () => {
-            // key between 101 -1000
-            const newNode:React.ReactElement = <Item key={Math.floor(Math.random()*(1000-100)+100)} name='' quantity={0} price={0} total={0}/>
-            setInvoices(thisArray => [...thisArray, newNode])
-    }
-
 return <>
+        <div className={`${styles.background}`}></div> 
             <div className={`${styles.container}`}>
             <form onSubmit={handleSubmit}>
-                <button type="submit">Submit</button>
+                <div className={`${styles.form}`}>
+                {/* <button type="submit">Submit</button> */}
+                <Link href={`/invoice?id=${invoiceId}`} onClick={() => params.setUpdate(false)}>
+                    <div className={`${design.btnGoBack}`}>
+                        <Image
+                            src="/assets/icon-arrow-left.svg"
+                            alt="arrow down"
+                            width={8}
+                            height={8}
+                            priority={true}
+                        />
+                            <h2>Go back</h2>
+                    </div>
+                </Link>
                 <h1 className={`${styles.h1}`}>Edit <span className={`${styles.hashtagColor}`}>#</span><span id='invoiceId'>{invoiceId}</span></h1>
                 <h6 className={`${styles.colorPurple} ${styles.letterSpacing} ${styles.headline}`}>Bill From</h6>
                 <div className={`${styles.stretch} ${styles.margin}`}>
@@ -255,14 +283,32 @@ return <>
                 <div ref={itemsRef} className={`${styles.items}`}>
                     {invoices}
                 </div>
-                <h3>
+                    <h3>
                         <button  type="button" className={`${designsystem.btn} ${designsystem.btn6Color} ${styles.btnAddNewItem}`} onClick={addNewItem}> 
                             <div className={`${designsystem.btn1}  ${designsystem.btn3} ${designsystem.btnFlex}`}>
                                 + Add New Item
                             </div>
                         </button>
                     </h3>
+                </div>
+                <div className={`${design.containerDesign} ${design.actionField}  ${styles.buttonBar}`}>
+                    <h3 className={`${styles.h3}`}>
+                        <button  onClick={() => params.setUpdate(false)} className={`${design.btn} ${design.btn3Color}`}> 
+                                <div className={` ${design.btn1} ${design.btnFlex}`}>
+                                    Cancel
+                                </div>
+                        </button>
+                    </h3>
+                    <h3 className={` ${styles.h3}`}>
+                        <button type="submit" className={`${design.btn} ${design.btnColor1}`}> 
+                            <div className={` ${design.btn1} ${design.btnFlex}`}>
+                                Save Changes
+                            </div>
+                        </button>
+                    </h3>
+                </div>
             </form>
             </div>
+            
         </>
 }

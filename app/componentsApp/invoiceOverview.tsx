@@ -2,7 +2,7 @@
 
 import styles from './invoiceOverview.module.css'
 import Image from 'next/image'
-import type { Invoice } from '../../interfaces'
+import type { Invoice } from '../../interfaces/invoice'
 import Moment from 'react-moment'
 import  PaidPendingDraft from '../../components/paidPendingDraft'
 

@@ -10,8 +10,9 @@
 @media(min-width: 768px){
 
   .content{
-    margin-inline: auto;
-    width: clamp(600px, 80%, 800px)
+    /* margin-inline: auto; */
+    /* width: clamp(600px, 80%, 800px) */
+    margin-inline: 10vw;
   }
 }
 
@@ -22,8 +23,8 @@
   }
 
   .content{
-    min-width: 800px;
-     margin-inline: auto;
+    /* min-width: 800px; */
+     /* margin-inline: auto; */
   }
 }
 

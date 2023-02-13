@@ -1,7 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as Methods from "../../../library/methods"
-import { Invoice } from '../../../interfaces'
+import { Invoice } from '../../../interfaces/invoice'
 
 // {id: 'RT3080'}
 // developement URL http://localhost:3000/api/invoices/[id]
@@ -35,10 +35,13 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
                     
                     break
                 case 'PUT':
-                    console.log(`put ${req.body.id}`)
+                    // console.log(`put ${req.body.id}`)
                     let itWorked = Methods.updateInvoice(req.body)
-
+                    //   console.log('itWorked')
+                    //   console.log(itWorked)
                     itWorked.then(result => {
+                        // console.log('itWorked.then')
+                        // console.log(result)
                         res.status(200).json('update')
                     })
                     .catch(error => res.status(400).end(`Something went wrong [id].ts catch PUT`))

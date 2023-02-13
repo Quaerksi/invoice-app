@@ -1,11 +1,4 @@
-.containerDesign{
-    
-    padding: 2rem;
 
-    border-radius: var(--border-radius);
-    margin-top: 2rem;
-    background-color: var(--color-background-invoiceOverview);
-}
 
 .container{
     display: flex;

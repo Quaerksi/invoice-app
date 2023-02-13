@@ -1,5 +1,5 @@
 import clientPromise from "./mongodb"
-import { Invoice } from '../interfaces'
+import { Invoice } from '../interfaces/invoice'
 
 
 // get all invoices from DB synchronous
@@ -57,12 +57,12 @@ export const invoiceById = async (id:String):Promise<Invoice | String> => {
 
 //update user
 export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
-    console.log(`Id lib: ${anInvoice.id}`)
-    let items;
+    let items
+    let total = 0
 
     if(anInvoice.items){
         items = anInvoice.items
-        console.log(anInvoice.items)
+        anInvoice.items.forEach(item => total += Number(item.total))
     }
     
     try { 
@@ -88,11 +88,14 @@ export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
                   },
                   "paymentTerms": `${anInvoice.paymentTerms}`,
                   "description": `${anInvoice.description}`,
-                  items
-
+                  items,
+                  "total":`${total}`
             } })
 
-            return true;
+            // console.log(`invoice`)
+            // console.log(invoice)
+      
+            return invoice.acknowledged;
     }
     catch(e) {
         console.error(e);
@@ -104,5 +107,3 @@ export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
 // Create, read, update, and delete invoices
 // Save draft invoices, and mark pending invoices as paid
 // - Filter invoices by status (draft/pending/paid)
-
-// local mongodb://localhost:27017

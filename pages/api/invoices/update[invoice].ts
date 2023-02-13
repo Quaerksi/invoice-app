@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as Methods from "../../../library/methods"
-import { Invoice } from '../../../interfaces'
+import { Invoice } from '../../../interfaces/invoice'
 
 export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
   const {

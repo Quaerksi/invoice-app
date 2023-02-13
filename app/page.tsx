@@ -1,6 +1,6 @@
 "use client"
 
-import type { Invoice } from '../interfaces'
+import type { Invoice } from '../interfaces/invoice'
 import useSWR from 'swr'
 // Unfortunately fetch with the SWR hook has to be done in the client because the SWR hook works with client hooks.
 // I could put the DB Api in a separate application to fetch from different server

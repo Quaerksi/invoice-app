@@ -1,7 +1,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import * as Methods from "../../../library/methods"
-import { Invoice } from '../../../interfaces'
+import { Invoice } from '../../../interfaces/invoice'
 
 // {id: 'RT3080'}
 // developement URL http://localhost:3000/api/invoices/[id]

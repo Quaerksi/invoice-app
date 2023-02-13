@@ -15,7 +15,7 @@ import Image from 'next/image'
 import ActionField from './componentsViewInvoice/actionField'
 import Table from'./componentsViewInvoice/table'
 
-import type { Invoice } from '../../interfaces'
+import type { Invoice } from '../../interfaces/invoice'
 import useSWR from 'swr'
 
 import Moment from 'react-moment'

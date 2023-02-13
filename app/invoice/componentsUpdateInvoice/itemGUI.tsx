@@ -13,7 +13,7 @@ interface Props {
     total: number 
 }
 
-export default function Item(props:Props) {
+export default function ItemGUI(props:Props) {
     
     const deleteItem = useRef<HTMLDivElement>(null);
     const total = useRef<HTMLInputElement>(null);
@@ -23,9 +23,9 @@ export default function Item(props:Props) {
     const [price, setPrice] = useState<number>(props.price)
 
     useEffect(() => {    
-        console.log('Changed') 
+        // console.log('Changed') 
         let inputElement = total.current;
-        console.log(inputElement)
+        // console.log(inputElement)
         if(inputElement){
             // inputElement.value = (qty * price).toString()
             inputElement.value = `${qty * price}`

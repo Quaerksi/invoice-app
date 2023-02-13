@@ -19,7 +19,7 @@ export default function Table(props:Props) {
 
     let allItems:React.ReactElement[] = [];
 
-    if(props.items){
+    if(props.items && props.items.length > 0){
         props.items.forEach(c =>{
         // {small screen}
         allItems.push(
