@@ -123,7 +123,6 @@ export default function DropdownDefault({name, elements, defaultValue="Next 1 Da
 
             let targetChild = target.firstElementChild as HTMLSpanElement
             targetChild.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-form-font');
-            // targetChild.style.color = 'var(--color-form-font);'
         }
     }
 

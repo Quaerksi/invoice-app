@@ -3,7 +3,7 @@ import { Invoice } from '../interfaces/invoice'
 
 
 // get all invoices from DB synchronous
-export const allInvoicesDB = async ():Promise<Invoice[] | [] | Array<Number>> => {
+export const allInvoicesDB = async ():Promise<Invoice[] | [] > => {
 
     try {
         const client = await clientPromise;
@@ -40,10 +40,6 @@ console.log('invoiceById')
         const invoice= await db
             .collection("ivoices")
             .findOne({id: id});
-
-        // console.log(`FindOne ${JSON.stringify(invoice)}, ${typeof invoice}`)
-        // const data:DbMethods<Invoice> = JSON.stringify(invoice) === null ? null : JSON.parse(JSON.stringify(invoice))        
-        // return data
 
         return JSON.stringify(invoice) === null ? '' : JSON.parse(JSON.stringify(invoice))
 
@@ -95,9 +91,28 @@ export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
                   "total":`${total}`
             } })
 
-            // console.log(`invoice`)
-            // console.log(invoice)
-      
+            return invoice.acknowledged;
+    }
+    catch(e) {
+        console.error(e);
+    }
+
+    return false;
+}
+
+//update status
+export const updateStatus = async(id: string, status: string):Promise<Boolean> => {
+    
+    try { 
+        const client = await clientPromise;
+        const db = client.db("challenge");
+
+        const invoice = await db
+            .collection("ivoices")
+                .updateOne({ id: `${id}`}, { $set: { 
+                "status": `${status}`
+                }})
+
             return invoice.acknowledged;
     }
     catch(e) {
@@ -111,8 +126,6 @@ export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
 //update user
 export const deleteInvoiceById = async(id:String):Promise<Boolean> => {
 
-    // console.log(`deleteInvoiceById ${id}`)
-
     try {
         const client = await clientPromise;
         const db = client.db("challenge");
@@ -123,12 +136,6 @@ export const deleteInvoiceById = async(id:String):Promise<Boolean> => {
             .collection("ivoices")
             .deleteOne({id:`${id}`});
 
-        // console.log(`FindOne ${JSON.stringify(invoice)}, ${typeof invoice}`)
-        // const data:DbMethods<Invoice> = JSON.stringify(invoice) === null ? null : JSON.parse(JSON.stringify(invoice))        
-        // return data
-
-        return JSON.stringify(invoice) === null ? '' : JSON.parse(JSON.stringify(invoice))
-
         return true;
 
     } catch (e) {
@@ -137,7 +144,6 @@ export const deleteInvoiceById = async(id:String):Promise<Boolean> => {
     }
 
     return false
-    // return true
 }
 // Create, read, update, and delete invoices
 // Save draft invoices, and mark pending invoices as paid

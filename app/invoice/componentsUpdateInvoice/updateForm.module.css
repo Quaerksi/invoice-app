@@ -109,8 +109,8 @@
     
     .container{
         max-width: 616px;
-        border-radius: var(--border-radius);
-        outline: 800px solid rgba(0, 0, 0, 80%);
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        outline: 8000px solid rgba(0, 0, 0, 80%);
         left: -10vw;
     } 
 
@@ -118,7 +118,3 @@
         display: flex;
     }
 }
-
-/* @media(min-width: 90rem){
- 
-} */

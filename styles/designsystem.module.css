@@ -202,13 +202,8 @@ div.order2 > h3 {
         display: none;
     }
 
-    /* .actionField{
-        padding: 0rem !important;
-    } */
-
     .actionFieldTop{
         display: flex;
-        /* padding: 0rem !important; */
     }    
 }
 

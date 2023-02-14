@@ -2,15 +2,10 @@
 .dropdown{
     position: relative;
     display: block;
-    /* color: var(--color-form-font-headings); */
     width: 15rem;
-    cursor: pointer;
-    
+    cursor: pointer;   
 }
 
-.dropdown > * {
-    /* color: var(--color-form-font); */
-}
 
 .dropdownLabel{
     display: flex;
@@ -21,7 +16,6 @@
     border: .1rem solid var(--color-form-border);
     padding: .8rem;
     background-color: var(--color-background);
-    /* margin-top: .5rem; */
 }
 
 .dropdownContent{

@@ -17,17 +17,13 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
 
             // typed variable for query parameter
             typedId = id;
-            // console.log(`[id].ts ${typedId}`)
 
             switch (method) {
                 case 'GET':
-                    // console.log(`Get`)
                     // Get data from your DB
                     let invoice = Methods.invoiceById(typedId);
 
                     invoice.then(result => {
-                        // console.log(`[id].ts ${JSON.stringify(result)}`)
-
                         // return null or an invoice
                         res.status(200).json(result)
                       })
@@ -35,21 +31,24 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
                     
                     break
                 case 'PUT':
-                    // console.log(`put ${req.body.id}`)
-                    let itWorked = Methods.updateInvoice(req.body)
-                    //   console.log('itWorked')
-                    //   console.log(itWorked)
-                    itWorked.then(result => {
-                        // console.log('itWorked.then')
-                        // console.log(result)
-                        res.status(200).json('update')
-                    })
-                    .catch(error => res.status(400).end(`Something went wrong [id].ts catch PUT`))
-                    
+                    const data = req.body
+
+                    if(Object.keys(data).length === 2 && Object.keys(data)[0] === 'id' && Object.keys(data)[1] === 'status'){
+                        let itWorked = Methods.updateStatus(data.id, data.status)
+                        itWorked.then(result => {
+                            res.status(200).json('update')
+                        })
+                        .catch(error => res.status(400).end(`Something went wrong [id].ts catch PUT`))
+                    } else {
+                        let itWorked = Methods.updateInvoice(req.body)
+                        itWorked.then(result => {
+                            res.status(200).json('update')
+                        })
+                        .catch(error => res.status(400).end(`Something went wrong [id].ts catch PUT`))
+                    }
+
                     break
                 case 'DELETE':
-                    // console.log(`delete ${req.body.id}`)
-                    // console.log(req.body)
 
                     let libDelete = Methods.deleteInvoiceById(req.body.id)
 

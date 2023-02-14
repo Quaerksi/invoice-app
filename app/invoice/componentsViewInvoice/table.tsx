@@ -1,5 +1,4 @@
 
-import design from '../../../styles/designsystem.module.css';
 import styles from './table.module.css'
 
 

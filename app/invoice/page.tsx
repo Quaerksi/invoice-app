@@ -25,9 +25,6 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 export default function Page() {
 
     const searchParams = useSearchParams();
-    // const searchId = searchParams.get('id')
-
-    // TO DO: Handle empty and wrong Invoice Id
     const [update, setUpdate] = useState<boolean>(false);
     const [deleteInvoice, setDeleteInvoice] = useState<boolean>(false);
 
@@ -62,15 +59,12 @@ export default function Page() {
                     <div className={`${styles.status}`} >
                         {/* status */}
                         <h3 className={`${styles.statusH3} ${styles.colorThirdFont}`}>Status</h3>
-                        
-                        {/* Pending / draft / paid */}
-                        {/* 110×42.9 */}
                         {data.status === 'draft' && <PaidPendingDraft name='draft'/>} 
                         {data.status === 'pending' && <PaidPendingDraft name='pending'/>}
                         {data.status === 'paid' && <PaidPendingDraft name='paid'/>}
                     </div>
                     <div className={` ${design.actionField} ${design.actionFieldTop}`}>
-                        <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice}/>
+                        <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id}/>
                     </div>
                 </div>
                 <div className={`${design.containerDesign}`}>
@@ -120,7 +114,7 @@ export default function Page() {
                     
                 </div>
                 <div className={`${design.containerDesign} ${design.actionField} ${design.actionFieldBottom}`}>
-                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice}/>
+                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id}/>
                 </div>
                 </div>
         </>

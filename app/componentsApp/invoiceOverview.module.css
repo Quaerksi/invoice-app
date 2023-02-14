@@ -1,9 +1,10 @@
-
-
 .container{
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    background-color: var(--color-background);
+    padding: 1rem;
+    border-radius: var(--border-radius);
 }
 
 .container:hover{
@@ -25,6 +26,7 @@
 
  .containerRightSite{
      margin-left: .5rem;
+     width: 130px;
  }
 
 .span,
@@ -59,15 +61,12 @@
 
 .pNameRight{
     display: block;
-    
+    width: 100%;  
 }
 
-/* @media(min-width: 500px){
-
-    .container{
-      padding-inline: 4rem;
-    }
-} */
+.paidPendingDraft > * {
+    margin-left: auto;
+}
 
 @media(min-width: 768px){
 
@@ -88,6 +87,7 @@
         grid-template-columns: 12rem 12rem 1rem;
         gap: .5rem;
         align-items: center;
+        width: 300px
     }
 
     .containerLeftSite > *, 

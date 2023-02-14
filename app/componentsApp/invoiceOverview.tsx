@@ -21,10 +21,7 @@ interface Props {
 export default function InvoiceOverview(prop: Props) {
 
     const {filterMode} = useFilterContext();
-    // console.log(`filter mode ${filterMode}`)
     const [show, setShow] = useState<boolean>(true)
-
-    // console.log(`show ${filterMode}`)
     
     // handle theme mode
     useEffect(() => {
@@ -52,7 +49,9 @@ export default function InvoiceOverview(prop: Props) {
                     <div className={`${styles.containerRightSite}`}>
                         <p className={`${styles.p} ${styles.pNameRight}`}>{prop?.invoice?.clientName}</p>
                         <h1 className={`${styles.h1Right}`}>£ {prop?.invoice?.total}</h1>
-                        <PaidPendingDraft name={prop?.invoice?.status}/>
+                        <div className={`${styles.paidPendingDraft}`}>
+                            <PaidPendingDraft name={prop?.invoice?.status}/>
+                        </div>
                         <Image
                             className={`${styles.imageArrow}`}
                             src="/assets/icon-arrow-right.svg"

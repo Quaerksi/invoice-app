@@ -164,7 +164,8 @@ export default function UpdateForm(params:Params) {
                     "paymentTerms": 1,
                     "clientName": `${clientName != '' ? clientName : dataInvoice.clientName}`,
                     "clientEmail": `${clientEmail != '' ? clientEmail : dataInvoice.clientEmail}`,
-                    "status": `pending`,
+                    "status": `${dataInvoice.status === 'paid' ? 'paid' : 'pending'}`,
+                    // "status": `pending`,
                     "senderAddress": {
                     "street": `${senderStreet != '' ? senderStreet : dataInvoice.senderAddress?.street}`,
                     "city": `${senderCity != '' ? senderCity : dataInvoice.senderAddress?.city}`,

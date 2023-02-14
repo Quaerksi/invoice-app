@@ -83,7 +83,6 @@
     --color-form-font: var(--color-white);
     --radius-form: .5rem;
     --color-background: var(--color-light-black);
-    /* --color-background-datepicker: var() */
 
     /* invoice overview */
     --color-background-invoiceOverview: var(--color-light-black);

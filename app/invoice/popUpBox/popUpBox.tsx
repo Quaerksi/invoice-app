@@ -14,7 +14,6 @@ export default function PopUpBox(props:Props) {
     const router = useRouter()
 
     const deleteInvoice = async() => {
-        // console.log('delete more')
         const response = await fetch(`/api/invoices/${props.id}`, {
             method: "DELETE",
             body: JSON.stringify({

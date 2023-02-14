@@ -1,0 +1,35 @@
+.container{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: var(--color-background-site);
+    z-index: 999;    
+}
+
+.content{
+    margin: 0 auto;
+    margin-top: 18rem;
+    padding: 1rem;
+    width: 50vw;
+}
+
+.content > * {
+    text-align: center;
+}
+
+@media(min-height:400px ) and (min-width: 768px){
+
+    .content{
+        margin-top: 45vh;
+    }
+}
+
+@media(min-height:400px ) and (min-width: 90rem){
+
+    .content{
+        margin-top: 30vh;
+        margin-left: 10vw;
+    }
+}

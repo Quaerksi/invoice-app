@@ -17,9 +17,6 @@ export default function Layout({ children }: {
     children: React.ReactNode;
   }) {
 
-    //handle theme mode
-    // const {themeMode} = useThemeContext();
-
     return (
       <html lang="en">
         <head>

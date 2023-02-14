@@ -4,8 +4,6 @@ import styles from './item.module.css'
 import Image from 'next/image' 
 import { useRef, useEffect, useState } from 'react';
 
-// {/* name, quantity, price, total */}
-
 interface Props {
     name: string, 
     quantity: number, 
@@ -23,11 +21,9 @@ export default function ItemGUI(props:Props) {
     const [price, setPrice] = useState<number>(props.price)
 
     useEffect(() => {    
-        // console.log('Changed') 
         let inputElement = total.current;
-        // console.log(inputElement)
+        
         if(inputElement){
-            // inputElement.value = (qty * price).toString()
             inputElement.value = `${qty * price}`
         }
     }, [qty, price]);
