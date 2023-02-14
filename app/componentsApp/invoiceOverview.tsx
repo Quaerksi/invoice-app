@@ -14,7 +14,6 @@ import { useFilterContext } from '../../context/useFilterContext'
 import Link from 'next/link'
 
 interface Props {
-    key: string;
     invoice: Invoice
 }
 

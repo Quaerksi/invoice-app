@@ -51,8 +51,5 @@
         display: inline-block;
     }
 
-    .seeOnBigScreen>*:first-child{
-        /* text-align: start; */
-    }
 }
 /* end table */

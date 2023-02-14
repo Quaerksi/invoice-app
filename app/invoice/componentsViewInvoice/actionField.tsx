@@ -5,27 +5,37 @@ import style from './actionField.module.css'
 type Props = {
     setUpdate: Dispatch<SetStateAction<boolean>>,
     setDeleteInvoice: Dispatch<SetStateAction<boolean>>,
-    id: string
+    id: string,
+    status: string
 }
 
 export default function ActionField(props:Props) {
 
     const changeStatus = async() => {
-        const response = await fetch(`/api/invoices/${props.id}`, {
-            method: "PUT",
-            body: JSON.stringify({
-                "id": `${props.id}`,
-                "status": `paid`
-            }),
-            headers: {
-                    "Content-Type": "application/json",
-            },
-        });
 
-        if(response.status == 200){
+        if(props.status == 'pending'){
+            const response = await fetch(`/api/invoices/${props.id}`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    "id": `${props.id}`,
+                    "status": `paid`
+                }),
+                headers: {
+                        "Content-Type": "application/json",
+                },
+            });
+
+            if(response.status == 200){
          
-            location.reload() 
-        }
+                location.reload() 
+            }
+        } else if (props.status == 'paid'){
+            console.log('Status is already paid')
+        } else if (props.status == 'draft'){
+            console.log('Status has to be pending first. Please complete all information')
+        }    
+
+        
     }
 
 return <>

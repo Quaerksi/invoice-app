@@ -3,7 +3,9 @@
 import design from '../../styles/designsystem.module.css'
 import styles from './headlineWithButtons.module.css'
 
-import React, { useRef, useEffect } from "react";
+import UpdateForm from '../invoice/componentsUpdateInvoice/updateForm' 
+
+import React, { useRef, useEffect, useState } from "react";
 
 // Context
 import { useThemeContext } from '../../context/useThemeContext'
@@ -18,6 +20,7 @@ interface Props {
 export default function Headline(prop: Props) {
 
     const count = prop.countInvoices
+    const [createNewInvoice, setCreateNewInvoice] = useState<boolean>(false)
 
     /****************************************** Filter Checkbox Start ************************************************************/
     const checkBox = useRef<HTMLDivElement>(null);
@@ -128,10 +131,16 @@ export default function Headline(prop: Props) {
 
     /****************************************** Filter Checkbox End ************************************************************/
 
+    const openEditInvoice = () => {
+        console.log('check edit')
+    }
+
     // controll mode changing 
     return (
         <>
+            
             <div className={`${styles.order}`}>
+            {createNewInvoice && <UpdateForm edit={false} setUpdate={setCreateNewInvoice}/>}
                 <div>
                     <h1 className={`${styles.headline}`}>Invoices</h1>
                     <h3 className={`${styles.secondLine}`}><span>{count ? count : 0 }</span> invoices</h3>
@@ -160,12 +169,13 @@ export default function Headline(prop: Props) {
                         </div>
                     </div>
                     <h3>
-                        <div className={`${design.btn}  ${design.btnColor1}`}> 
+                        {/* onClick={openEditInvoice} */}
+                        <div onClick={() => setCreateNewInvoice(true)} className={`${design.btn}  ${design.btnColor1}`}> 
                             <div className={` ${design.btn2} ${design.btnFlex}`}>
                                 <div className={`${design.circle}`}>
                                     <div className={`${design.btnFlex}`}>+</div>
                                 </div>
-                                <div  className={`${design.text}`}>New</div>
+                                <div className={`${design.text}`}>New</div>
                             </div>
                         </div>
                     </h3>

@@ -30,6 +30,13 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
                       .catch(error => res.status(400).end(`Something went wrong [id].ts catch GET`))
                     
                     break
+                case 'POST':
+                    let itWorked = Methods.insertInvoice(req.body)
+                    itWorked.then(result => {
+                        res.status(200).json('insert')
+                    })
+                    .catch(error => res.status(400).end(`Something went wrong [id].ts catch POST`))
+                    break
                 case 'PUT':
                     const data = req.body
 
@@ -61,7 +68,7 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse<In
                     
                 break
                 default:
-                    res.setHeader('Allow', ['GET', 'PUT', 'DELETE'])
+                    res.setHeader('Allow', ['GET', 'PUT', 'DELETE', 'POST'])
                     res.status(405).end(`Method ${method} Not Allowed`)
                 }
             }   

@@ -41,7 +41,7 @@ export default function Page() {
         {deleteInvoice && <PopUpBox setDeleteInvoice={setDeleteInvoice} id={data.id}/>}
         <div ref={refBackground} className={`${styles.background}`}></div>
         <div  className={`${styles.container}`}>
-                {update && <UpdateForm id={data.id} edit={true} setUpdate={setUpdate} update={update} />}
+                {update && <UpdateForm id={data.id} edit={true} setUpdate={setUpdate} />}
                 <Link href={`/`}>
                     <div className={`${design.btnGoBack}`}>
                         <Image
@@ -114,7 +114,7 @@ export default function Page() {
                     
                 </div>
                 <div className={`${design.containerDesign} ${design.actionField} ${design.actionFieldBottom}`}>
-                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id}/>
+                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id} status={data.status}/>
                 </div>
                 </div>
         </>

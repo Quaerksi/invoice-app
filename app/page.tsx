@@ -19,24 +19,20 @@ interface dropdownValues {
     defaultValue: string
 }
 
-// interface invoiceInterface{
-    type invoiceInterface = Invoice[] | void
-// } 
-
 export default function Page() {
 
     // call to my api, read data from DB
     const {data, error} = useSWR<Invoice[] | []>('/api/allInvoices', fetcher)
-    // const {data, error} = useSWR<invoiceInterface>('/api/allInvoices', fetcher)
 
     if (error) return <div>Failed to load users</div>
     if (!data) return <div>Loading...</div>
 
-    const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <p><InvoiceOverview key={`InvoiceOverview-${index}`} invoice={invoice} /></p>)
+    const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <div key={`InvoiceOverview-${index}`} style={{marginBottom: '1rem'}}> <InvoiceOverview invoice={invoice} /> </div>)
 
     return <div className={styles.content}>
                 <FilterProvider>
                 <Headline countInvoices={data?.length}/>
+                <br/>
                 {allInvoices.length == 0 && <NoInvoicesThere />}
                 {
                     allInvoices

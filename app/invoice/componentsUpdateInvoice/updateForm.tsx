@@ -21,18 +21,21 @@ import Image from 'next/image'
 
 import design from '../../../styles/designsystem.module.css'
 
-type Params = {
-    id: String
+interface Params {
+    id?: String
     edit: Boolean
     setUpdate: Dispatch<SetStateAction<boolean>>
-    update: Boolean
+}
+
+const defaultParams = {
+    id: 'ooo'
 }
 
 // an :Invoice dummy
 var dataInvoice:Invoice = {
 
     "id": "",
-    "createdAt": `${new Date()}`,
+    "createdAt": ``,
     "paymentDue": "",
     "description": "",
     "paymentTerms": 30,
@@ -64,11 +67,21 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 // at the moment: fetch data again for avoiding conflict (more code as well)
 // TO DO: handle this file for - create new invoice
 // TO DO: make draft possible -> If not all fields are filled out, it is a draft
-export default function UpdateForm(params:Params) {
+export default function UpdateForm(paramsIn:Params) {
 
-    const [startDate, setStartDate] = useState(new Date('21 Aug 2021'));
+    const params = {defaultParams, ... paramsIn}
+
+    console.log(`new date ${`${new Date().toJSON().slice(0,10).replace(/-/g,'/')}`}`)
+    
+
+    const [startDate, setStartDate] = useState(new Date());
     const [invoices, setInvoices] = useState<React.ReactElement[]>([])
     
+    // id if create new
+    
+    var crypto = require("crypto");
+    const myId = crypto.randomBytes(3).toString('hex').toUpperCase()
+
     // sender
     const [senderStreet, setSenderStreet] = useState<string>('');
     const [senderCity, setSenderCity] = useState<string>('');
@@ -86,42 +99,52 @@ export default function UpdateForm(params:Params) {
     // items
     const itemsRef = useRef<HTMLInputElement>(null);
 
-    // dummy for create new Invoice
     var invoiceId:String = '1'
+    // catch invoice items
+    let dataItems:Array<Item> = [];
+
+    // router.push('/')
+
+    //if edit -> if invoice data exist already
     if(params.edit === true) {
 
         // call to my api, read data from DB
         const {data, error} = useSWR<Invoice>(`/api/invoices/${params.id}`, fetcher)
 
-        if(data){
+        if(data && params.id ){
             dataInvoice = data
             invoiceId = params.id            
         }
     
         if (error) return <div>Failed to load users</div>
         if (!data) return <div>Loading...</div>
-    }
 
-    // catch invoice items
-    let dataItems:Array<Item> = [];
-    if(dataInvoice.items && typeof dataInvoice.items != typeof Array){
+        if(dataInvoice.items && typeof dataInvoice.items != typeof Array){
 
-      dataItems = dataInvoice.items
-    }  
+            dataItems = dataInvoice.items
+          }  
 
-    // push invoice items to GUI
+          // push invoice items to GUI
     useEffect(() => {
+
+        setStartDate(new Date(`${dataInvoice.createdAt}`))
 
         let invoicesCurrent:React.ReactElement[] = []
         try{
             if(dataItems && dataItems.length != 0){
                 invoicesCurrent = dataItems.map((item,index,arr) => <ItemGUI key={`item${index}`} name={`${item.name}`} quantity={item.quantity} price={item.price} total={item.total}/>)
                 setInvoices(invoicesCurrent)
+                
             }  
         }catch(error){
             console.error(`Error ${error}`);    
         } 
       }, [])
+
+    
+    }
+
+    
 
    let addNewItem = () => {
            // key between 101 -1000
@@ -129,6 +152,7 @@ export default function UpdateForm(params:Params) {
            const newNode:React.ReactElement = <ItemGUI key={Math.floor(Math.random()*(1000-100)+100)} name='' quantity={0} price={0} total={0}/>
            setInvoices(thisArray => [...thisArray, newNode])
    }
+
 
     const handleSubmit = async (event:React.FormEvent) => {
 
@@ -151,48 +175,97 @@ export default function UpdateForm(params:Params) {
                     })
                     newitemsArray=JSON.stringify(items)
             }
-
         }
 
-        // PUT if  edit Invoice (POST if new Invoice)
-        if(params.id != 'X'){
-            const response = await fetch(`/api/invoices/${params.id}`, {
-                method: "PUT",
-                body: JSON.stringify({
-                    "id": `${invoiceId}`,
-                    "description": `${projectDescription != '' ? projectDescription : dataInvoice.description}`,
-                    "paymentTerms": 1,
-                    "clientName": `${clientName != '' ? clientName : dataInvoice.clientName}`,
-                    "clientEmail": `${clientEmail != '' ? clientEmail : dataInvoice.clientEmail}`,
-                    "status": `${dataInvoice.status === 'paid' ? 'paid' : 'pending'}`,
-                    // "status": `pending`,
-                    "senderAddress": {
-                    "street": `${senderStreet != '' ? senderStreet : dataInvoice.senderAddress?.street}`,
-                    "city": `${senderCity != '' ? senderCity : dataInvoice.senderAddress?.city}`,
-                    "postCode": `${senderPostCode != '' ? senderPostCode : dataInvoice.senderAddress?.postCode}`,
-                    "country": `${senderCountry != '' ? senderCountry : dataInvoice.senderAddress?.country}`
-                    },
-                    "clientAddress": {
-                    "street":  `${clientStreet != '' ? clientStreet : dataInvoice.clientAddress?.street}`,
-                    "city":  `${clientCity != '' ? clientCity : dataInvoice.clientAddress?.city}`,
-                    "postCode":  `${clientPostCode != '' ? clientPostCode : dataInvoice.clientAddress?.postCode}`,
-                    "country":  `${clientCountry != '' ? clientCountry : dataInvoice.clientAddress?.country}`
-                    },
-                    items
-                    ,
-                    "total": 102.04
-               }),
-                headers: {
-                        "Content-Type": "application/json",
-                },
-            });
 
-            if(response.status == 200){
-         
-                location.reload() 
+        // for params.edit = true
+        if(params.edit === true){
+            
+            // PUT if  edit Invoice (POST if new Invoice)
+            if(params.id != 'X'){
+                const response = await fetch(`/api/invoices/${params.id}`, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        "id": `${invoiceId}`,
+                        "description": `${projectDescription != '' ? projectDescription : dataInvoice.description}`,
+                        "paymentTerms": 1,
+                        "clientName": `${clientName != '' ? clientName : dataInvoice.clientName}`,
+                        "clientEmail": `${clientEmail != '' ? clientEmail : dataInvoice.clientEmail}`,
+                        "status": `${dataInvoice.status === 'paid' ? 'paid' : 'pending'}`,
+                        "senderAddress": {
+                        "street": `${senderStreet != '' ? senderStreet : dataInvoice.senderAddress?.street}`,
+                        "city": `${senderCity != '' ? senderCity : dataInvoice.senderAddress?.city}`,
+                        "postCode": `${senderPostCode != '' ? senderPostCode : dataInvoice.senderAddress?.postCode}`,
+                        "country": `${senderCountry != '' ? senderCountry : dataInvoice.senderAddress?.country}`
+                        },
+                        "clientAddress": {
+                        "street":  `${clientStreet != '' ? clientStreet : dataInvoice.clientAddress?.street}`,
+                        "city":  `${clientCity != '' ? clientCity : dataInvoice.clientAddress?.city}`,
+                        "postCode":  `${clientPostCode != '' ? clientPostCode : dataInvoice.clientAddress?.postCode}`,
+                        "country":  `${clientCountry != '' ? clientCountry : dataInvoice.clientAddress?.country}`
+                        },
+                        items
+                }),
+                    headers: {
+                            "Content-Type": "application/json",
+                    },
+                });
+
+                if(response.status == 200){
+            
+                    location.reload() 
+                }
+            }
+        } else if(params.edit === false){
+
+            //is invoice complete ?
+            let status = 'draft'
+            //TO DO: define harder rules then empty
+            if( projectDescription != '' && clientName != '' && clientEmail != '' && senderStreet != '' && senderCity != '' && senderPostCode != '' 
+            && senderCountry != '' && clientStreet != '' && clientCity != '' && clientPostCode != '' && clientCountry != ''){
+                status = 'draft'
+            }
+
+            // PUT if  edit Invoice (POST if new Invoice)
+            if(params.id != 'X'){
+                const response = await fetch(`/api/invoices/${params.id}`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        "id": myId,
+                        "createdAt": startDate,
+                        "paymentDue": startDate,
+                        "description": projectDescription,
+                        "paymentTerms": 1,
+                        "clientName": clientName,
+                        "clientEmail": clientEmail,
+                        "status": status,
+                        "senderAddress": {
+                        "street": senderStreet,
+                        "city": senderCity != '' ? senderCity : dataInvoice.senderAddress?.city,
+                        "postCode": senderPostCode != '' ? senderPostCode : dataInvoice.senderAddress?.postCode,
+                        "country": senderCountry
+                        },
+                        "clientAddress": {
+                        "street":  clientStreet,
+                        "city":  clientCity,
+                        "postCode":  clientPostCode,
+                        "country":  clientCountry
+                        },
+                        items
+                }),
+                    headers: {
+                            "Content-Type": "application/json",
+                    },
+                });
+
+                if(response.status == 200){
+            
+                    location.reload() 
+                }
             }
         }
     }
+
 
 return <>
         <div className={`${styles.background}`}></div> 
@@ -212,58 +285,81 @@ return <>
                             <h2>Go back</h2>
                     </div>
                 </Link>
-                <h1 className={`${styles.h1}`}>Edit <span className={`${styles.hashtagColor}`}>#</span><span id='invoiceId'>{invoiceId}</span></h1>
+                {/* double here */}
+                {params.edit && <h1 className={`${styles.h1}`}>Edit <span className={`${styles.hashtagColor}`}>#</span><span id='invoiceId'>{invoiceId}</span></h1>}
+                {!params.edit && <h1 className={`${styles.h1}`}>Create <span className={`${styles.hashtagColor}`}>#</span><span id='invoiceId'>{myId}</span></h1>}
                 <h6 className={`${styles.colorPurple} ${styles.letterSpacing} ${styles.headline}`}>Bill From</h6>
                 <div className={`${styles.stretch} ${styles.margin}`}>
                     <label htmlFor="senderStreet">Street Address:</label>
-                    <input className={`${designsystem.input}`} type="text" id="senderStreet" name="senderStreet" defaultValue={dataInvoice.senderAddress?.street} onInput={e => setSenderStreet((e.target as HTMLInputElement).value)} required/> 
+                    {/* double here */}
+                    {params.edit && <input className={`${designsystem.input}`} type="text" id="senderStreet" name="senderStreet" defaultValue={dataInvoice.senderAddress?.street} onInput={e => setSenderStreet((e.target as HTMLInputElement).value)} required/> }
+                    {!params.edit && <input className={`${designsystem.input}`} type="text" id="senderStreet" name="senderStreet" onInput={e => setSenderStreet((e.target as HTMLInputElement).value)} /> }
                 </div>
                 <div className={`${styles.grid}`}>
                     <div className={`${styles.inline} ${styles.marginRight}`}>
                         <label htmlFor="senderCity">City:</label>
-                        <input className={`${designsystem.input}`} type="text" id="senderCity" name="senderCity" defaultValue={`${dataInvoice.senderAddress?.city}`}  onInput={e => setSenderCity((e.target as HTMLInputElement).value)}  required/> 
+                        {/* double here */}
+                        {params.edit && <input className={`${designsystem.input}`} type="text" id="senderCity" name="senderCity" defaultValue={`${dataInvoice.senderAddress?.city}`}  onInput={e => setSenderCity((e.target as HTMLInputElement).value)}  required/> }
+                        {!params.edit && <input className={`${designsystem.input}`} type="text" id="senderCity" name="senderCity" onInput={e => setSenderCity((e.target as HTMLInputElement).value)} /> }
                     </div>
                     <div className={`${styles.inline} ${styles.marginRight}`}>
                         <label  htmlFor="senderPostCode">Post Code:</label>
-                        <input className={`${designsystem.input}`} type="text" id="senderPostCode" name="senderPostCode" defaultValue={`${dataInvoice.senderAddress?.postCode}`}  onInput={e => setSenderPostCode((e.target as HTMLInputElement).value)} required/> 
+                        {/* double here */}
+                        {params.edit && <input className={`${designsystem.input}`} type="text" id="senderPostCode" name="senderPostCode" defaultValue={`${dataInvoice.senderAddress?.postCode}`}  onInput={e => setSenderPostCode((e.target as HTMLInputElement).value)} required/> }
+                        {!params.edit && <input className={`${designsystem.input}`} type="text" id="senderPostCode" name="senderPostCode"  onInput={e => setSenderPostCode((e.target as HTMLInputElement).value)}/> }
                     </div>
                     <div className={`${styles.inline}`}>
                         <label  htmlFor="senderCountry">Country:</label>
-                        <input className={`${designsystem.input}`} type="text" id="senderCountry" name="senderCountry" defaultValue={`${dataInvoice.senderAddress?.country}`}  onInput={e => setSenderCountry((e.target as HTMLInputElement).value)} required/> 
+                        {/* double here */}
+                        {params.edit &&  <input className={`${designsystem.input}`} type="text" id="senderCountry" name="senderCountry" defaultValue={`${dataInvoice.senderAddress?.country}`}  onInput={e => setSenderCountry((e.target as HTMLInputElement).value)} required/> }
+                        {!params.edit &&  <input className={`${designsystem.input}`} type="text" id="senderCountry" name="senderCountry" onInput={e => setSenderCountry((e.target as HTMLInputElement).value)} /> }                        
                     </div>
                 </div>
                 <h6 className={`${styles.colorPurple} ${styles.letterSpacing} ${styles.headline}`}>Bill To</h6>
                 <div className={`${styles.stretch}`}>
                     <label htmlFor="clientName">Client's Name:</label>
-                    <input className={`${designsystem.input}`} type="text" id="clientName" name="clientName" defaultValue={`${dataInvoice.clientName}`} onInput={e => setClientName((e.target as HTMLInputElement).value)} required/> 
+                    {/* double here */}
+                    {params.edit && <input className={`${designsystem.input}`} type="text" id="clientName" name="clientName" defaultValue={`${dataInvoice.clientName}`} onInput={e => setClientName((e.target as HTMLInputElement).value)} required/> }
+                    {!params.edit && <input className={`${designsystem.input}`} type="text" id="clientName" name="clientName" onInput={e => setClientName((e.target as HTMLInputElement).value)}/> }
                 </div>
                 <div className={`${styles.stretch}`}>
                     <label htmlFor="clientEmail">Client's Email:</label>
-                    <input className={`${designsystem.input}`} type="email" id="clientEmail" name="clientEmail" defaultValue={`${dataInvoice.clientEmail}`} onInput={e => setClientEmail((e.target as HTMLInputElement).value)} required/> 
+                    {/* double here */}
+                    {params.edit &&  <input className={`${designsystem.input}`} type="email" id="clientEmail" name="clientEmail" defaultValue={`${dataInvoice.clientEmail}`} onInput={e => setClientEmail((e.target as HTMLInputElement).value)} required/> }
+                    {!params.edit &&  <input className={`${designsystem.input}`} type="email" id="clientEmail" name="clientEmail" onInput={e => setClientEmail((e.target as HTMLInputElement).value)}/> }
                 </div>
                 <div className={`${styles.stretch}`}>
                     <label htmlFor="clientStreet">Street Address:</label>
-                    <input className={`${designsystem.input}`} type="text" id="clientStreet" name="clientStreet" defaultValue={`${dataInvoice.clientAddress?.street}`} onInput={e => setClientStreet((e.target as HTMLInputElement).value)} required/> 
+                    {/* double here */}
+                    {params.edit && <input className={`${designsystem.input}`} type="text" id="clientStreet" name="clientStreet" defaultValue={`${dataInvoice.clientAddress?.street}`} onInput={e => setClientStreet((e.target as HTMLInputElement).value)} required/> }
+                    {!params.edit && <input className={`${designsystem.input}`} type="text" id="clientStreet" name="clientStreet" onInput={e => setClientStreet((e.target as HTMLInputElement).value)}/> }
                 </div>
                 <div className={`${styles.grid}`}>
                     <div className={`${styles.inline} ${styles.marginRight}`}>
                         <label htmlFor="clientCity">City:</label>
-                        <input className={`${designsystem.input}`} type="text" id="clientCity" name="clientCity" defaultValue={`${dataInvoice.clientAddress?.city}`} onInput={e => setClientCity((e.target as HTMLInputElement).value)} required/> 
+                        {/* double here */}
+                        {params.edit && <input className={`${designsystem.input}`} type="text" id="clientCity" name="clientCity" defaultValue={`${dataInvoice.clientAddress?.city}`} onInput={e => setClientCity((e.target as HTMLInputElement).value)} required/> }
+                        {!params.edit && <input className={`${designsystem.input}`} type="text" id="clientCity" name="clientCity" onInput={e => setClientCity((e.target as HTMLInputElement).value)}/> }
                     </div>
                     <div className={`${styles.inline} ${styles.marginRight}`}>
-                        <label  htmlFor="clientPostCode">Post Code:</label>
-                        <input className={`${designsystem.input}`} type="text" id="clientPostCode" name="clientPostCode" defaultValue={`${dataInvoice.clientAddress?.postCode}`} onInput={e => setClientPostCode((e.target as HTMLInputElement).value)} required/> 
+                        <label htmlFor="clientPostCode">Post Code:</label>
+                        {/* double here */}
+                        {params.edit && <input className={`${designsystem.input}`} type="text" id="clientPostCode" name="clientPostCode" defaultValue={`${dataInvoice.clientAddress?.postCode}`} onInput={e => setClientPostCode((e.target as HTMLInputElement).value)} required/> }
+                        {!params.edit && <input className={`${designsystem.input}`} type="text" id="clientPostCode" name="clientPostCode" onInput={e => setClientPostCode((e.target as HTMLInputElement).value)}/> }
                     </div>
                     <div className={`${styles.inline}`}>
                         <label  htmlFor="clientCountry">Country:</label>
-                        <input className={`${designsystem.input}`} type="text" id="clientCountry" name="clientCountry" defaultValue={`${dataInvoice.clientAddress?.country}`} onInput={e => setClientCountry((e.target as HTMLInputElement).value)} required/> 
+                        {/* double here */}
+                        {params.edit && <input className={`${designsystem.input}`} type="text" id="clientCountry" name="clientCountry" defaultValue={`${dataInvoice.clientAddress?.country}`} onInput={e => setClientCountry((e.target as HTMLInputElement).value)} required/> }
+                        {!params.edit && <input className={`${designsystem.input}`} type="text" id="clientCountry" name="clientCountry" onInput={e => setClientCountry((e.target as HTMLInputElement).value)}/> }
                     </div>
                 </div>
                 {/* TO DO: If invoice exist already then font-color light gray and readOnly, if invoice new then font-color black and changeable */}
                 <div  className={`${styles.grid2} ${styles.inline}`}>
                     <div className={`${styles.width}`}>
                         <label htmlFor="date">Invoice Date:</label>
-                        <DatePicker 
+                        
+                       {params.edit && <DatePicker 
                             locale="de"
                             dateFormat="dd MMM yyyy"
                             showPopperArrow={false}
@@ -271,7 +367,16 @@ return <>
                             selected={startDate} 
                             readOnly={true}
                             onChange={(date:Date) => setStartDate(new Date(`${dataInvoice.createdAt}`))} 
-                        />
+                        />}
+                        {!params.edit &&  <DatePicker
+                            locale="de"
+                            dateFormat="dd MMM yyyy"
+                            showPopperArrow={true}
+                            closeOnScroll={true}
+                            selected={startDate} 
+                            readOnly={false}
+                            onChange={(date:Date) => setStartDate(date)} 
+                        />}
                     </div>
                     <div className={`${styles.widthDropdown}`}>
                         {/* TO DO: extract days, calculate expirering date */}
@@ -280,7 +385,9 @@ return <>
                 </div>
                 <div className={`${styles.stretch}`}>
                     <label htmlFor="projectDescription">Project Description:</label>
-                    <input className={`${designsystem.input}`} type="text" id="projectDescription" name="projectDescription"  defaultValue={`${dataInvoice.description}`} onInput={e => setProjectDescription((e.target as HTMLInputElement).value)} required/> 
+                    {/* double here */}
+                    {params.edit && <input className={`${designsystem.input}`} type="text" id="projectDescription" name="projectDescription"  defaultValue={`${dataInvoice.description}`} onInput={e => setProjectDescription((e.target as HTMLInputElement).value)} required/> } 
+                    {!params.edit && <input className={`${designsystem.input}`} type="text" id="projectDescription" name="projectDescription"  onInput={e => setProjectDescription((e.target as HTMLInputElement).value)}/> } 
                 </div>
                 <h2 className={`${styles.itemListHeadline}`}>Item List</h2>
                 <div ref={itemsRef} className={`${styles.items}`}>
