@@ -1,7 +1,10 @@
-
 .container{
     position: relative;
     z-index: 101;
+}
+
+.btnGoBack{
+    margin-top: 2rem;
 }
 
 .status{

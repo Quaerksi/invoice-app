@@ -47,7 +47,7 @@ export default function Page() {
         <div  className={`${styles.container}`}>
                 {update && <UpdateForm id={data.id} edit={true} setUpdate={setUpdate} />}
                 <Link href={`/`}>
-                    <div className={`${design.btnGoBack}`}>
+                    <div className={`${design.btnGoBack} ${styles.btnGoBack}`}>
                         <Image
                             src="/assets/icon-arrow-left.svg"
                             alt="arrow down"
