@@ -16,7 +16,7 @@ import useSWR from 'swr'
 import Moment from 'react-moment'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -27,14 +27,18 @@ export default function Page() {
     const searchParams = useSearchParams();
     const [update, setUpdate] = useState<boolean>(false);
     const [deleteInvoice, setDeleteInvoice] = useState<boolean>(false);
+    const [markAsPaidMessage, setMarkAsPaidMessage]  = useState<string>('')
 
     const refBackground = useRef(null);
+
+    useEffect(() => { 
+        setMarkAsPaidMessage('')
+    }, [deleteInvoice, update]);
 
     const {data, error} = useSWR<Invoice>(`/api/invoices/${searchParams.get('id')}`, fetcher)
         
         if (error) return <div>Failed to load users</div>
-        if (!data) return <div>Loading...</div>
-
+        if (!data) return <div><h3>Loading...</h3><p> If it stays longer, the ID doesn't exist.</p></div>
 
     return(
         <>
@@ -51,9 +55,12 @@ export default function Page() {
                             height={8}
                             priority={true}
                         />
-                            <h2>Go back</h2>
+                            <h2 >Go back</h2>
                     </div>
                 </Link>
+
+                <p className={`${styles.errorMessage}`}>{markAsPaidMessage}</p>
+
                 <div className={`${styles.statusOutside} ${design.containerDesign}`}>
                     
                     <div className={`${styles.status}`} >
@@ -64,7 +71,7 @@ export default function Page() {
                         {data.status === 'paid' && <PaidPendingDraft name='paid'/>}
                     </div>
                     <div className={` ${design.actionField} ${design.actionFieldTop}`}>
-                        <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id}/>
+                        <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id} status={data.status} setMarkAsPaidMessage={setMarkAsPaidMessage}/>
                     </div>
                 </div>
                 <div className={`${design.containerDesign}`}>
@@ -114,7 +121,7 @@ export default function Page() {
                     
                 </div>
                 <div className={`${design.containerDesign} ${design.actionField} ${design.actionFieldBottom}`}>
-                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id} status={data.status}/>
+                    <ActionField setUpdate={setUpdate} setDeleteInvoice={setDeleteInvoice} id={data.id} status={data.status} setMarkAsPaidMessage={setMarkAsPaidMessage}/>
                 </div>
                 </div>
         </>

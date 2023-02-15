@@ -13,10 +13,12 @@
     background-color: var(--color-background-invoiceOverview);
     padding-inline: 2rem;
     max-width: 330px;
-    min-height: 200px;
+    min-height: 160px;
     border-radius: var(--border-radius);
     left: calc(50% - (var(--layout-margin) / 2) - 165px);
-    top: calc(50% - (var(--layout-margin) / 2) - 100px);
+    /* top: calc(50% - (var(--layout-margin) / 2) - 100px); */
+    top: 23rem;
+    margin: 2rem;
     z-index: 999;
 }
 
@@ -27,4 +29,12 @@
 
 .spaceButton{
     margin-right: 1rem;
+}
+
+@media(min-width: 90rem){
+    
+    .popUpBox{
+        left: 40rem;
+        top: 25rem;
+    }
 }

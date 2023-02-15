@@ -4,13 +4,15 @@
 }
 
 .content{
-  margin: 2rem;
+  margin-inline: 2rem;
 }
 
 @media(min-width: 768px){
 
   .content{
-    margin-inline: var(--layout-margin);
+    margin-inline:7vw;
+    min-width: 550px; 
+    max-width: 800px;
   }
 }
 
@@ -18,6 +20,11 @@
 
   .contentOrder{
     flex-direction: row;
+  }
+
+  .content{
+    margin-inline: 13rem;
+    width: 900px;
   }
 }
 

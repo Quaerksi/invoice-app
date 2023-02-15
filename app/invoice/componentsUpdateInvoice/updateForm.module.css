@@ -111,10 +111,17 @@
         max-width: 616px;
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
         outline: 8000px solid rgba(0, 0, 0, 80%);
-        left: -10vw;
+        left: -8vw;
     } 
 
     .buttonBar{
         display: flex;
+    }
+}
+
+@media(min-width: 90rem){
+
+    .container{
+        left: -13rem;
     }
 }

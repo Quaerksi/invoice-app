@@ -71,11 +71,12 @@ export default function UpdateForm(paramsIn:Params) {
 
     const params = {defaultParams, ... paramsIn}
 
-    console.log(`new date ${`${new Date().toJSON().slice(0,10).replace(/-/g,'/')}`}`)
-    
+    // console.log(`new date ${`${new Date().toJSON().slice(0,10).replace(/-/g,'/')}`}`)
 
     const [startDate, setStartDate] = useState(new Date());
     const [invoices, setInvoices] = useState<React.ReactElement[]>([])
+    // handle payment terms
+    const [paymentTerms, setPaymentTerms] = useState<string>('Next 1 day')
     
     // id if create new
     
@@ -103,8 +104,6 @@ export default function UpdateForm(paramsIn:Params) {
     // catch invoice items
     let dataItems:Array<Item> = [];
 
-    // router.push('/')
-
     //if edit -> if invoice data exist already
     if(params.edit === true) {
 
@@ -129,6 +128,11 @@ export default function UpdateForm(paramsIn:Params) {
 
         setStartDate(new Date(`${dataInvoice.createdAt}`))
 
+        //handle payment terms
+        if(dataInvoice.paymentTerms){
+            setPaymentTerms(`Next ${dataInvoice.paymentTerms.toString()} day`)
+        }
+
         let invoicesCurrent:React.ReactElement[] = []
         try{
             if(dataItems && dataItems.length != 0){
@@ -144,20 +148,45 @@ export default function UpdateForm(paramsIn:Params) {
     
     }
 
-    
-
    let addNewItem = () => {
            // key between 101 -1000
-           // TO DO: create fitting id = letter letter number number number number
            const newNode:React.ReactElement = <ItemGUI key={Math.floor(Math.random()*(1000-100)+100)} name='' quantity={0} price={0} total={0}/>
            setInvoices(thisArray => [...thisArray, newNode])
    }
 
+   const handleDateToPay = (startDayI:string, daysYouHaveTime:number) =>{
+
+    const startDay = new Date(startDayI)
+    //daysYouHaveTime in milliseconds
+    const timeInMilliseconds = daysYouHaveTime * 86400000 ;
+    const payDate = new Date(startDay.getTime() + timeInMilliseconds)
+
+    // handle format
+    let month:string = `${payDate.getMonth()+1}`
+    let day:string = `${payDate.getDate()}`
+    if(Number(month) < 10){
+        month = `0${payDate.getMonth()+1}`
+    }
+    if(Number(day) < 10){
+        day = `0${payDate.getDate()}`
+    }
+
+    return `${payDate.getFullYear()}-${month}-${day}`;
+   }
 
     const handleSubmit = async (event:React.FormEvent) => {
 
         event.preventDefault();
 
+        // handle payment terms
+        let paymentTermsNumb = paymentTerms.match(/\d/g);
+        let payInDays
+        if (paymentTermsNumb){
+            payInDays = Number(paymentTermsNumb.join(""))
+        } else {
+            payInDays = 0
+        }
+    
         // handle items
         // QUESTION: is this an appropriate performance
         let newItems = itemsRef.current
@@ -177,7 +206,6 @@ export default function UpdateForm(paramsIn:Params) {
             }
         }
 
-
         // for params.edit = true
         if(params.edit === true){
             
@@ -188,7 +216,8 @@ export default function UpdateForm(paramsIn:Params) {
                     body: JSON.stringify({
                         "id": `${invoiceId}`,
                         "description": `${projectDescription != '' ? projectDescription : dataInvoice.description}`,
-                        "paymentTerms": 1,
+                        "paymentTerms": payInDays,
+                        "paymentDue": `${dataInvoice.createdAt ? handleDateToPay(dataInvoice.createdAt, payInDays) : dataInvoice.createdAt}`,
                         "clientName": `${clientName != '' ? clientName : dataInvoice.clientName}`,
                         "clientEmail": `${clientEmail != '' ? clientEmail : dataInvoice.clientEmail}`,
                         "status": `${dataInvoice.status === 'paid' ? 'paid' : 'pending'}`,
@@ -223,7 +252,7 @@ export default function UpdateForm(paramsIn:Params) {
             //TO DO: define harder rules then empty
             if( projectDescription != '' && clientName != '' && clientEmail != '' && senderStreet != '' && senderCity != '' && senderPostCode != '' 
             && senderCountry != '' && clientStreet != '' && clientCity != '' && clientPostCode != '' && clientCountry != ''){
-                status = 'draft'
+                status = 'pending'
             }
 
             // PUT if  edit Invoice (POST if new Invoice)
@@ -233,9 +262,9 @@ export default function UpdateForm(paramsIn:Params) {
                     body: JSON.stringify({
                         "id": myId,
                         "createdAt": startDate,
-                        "paymentDue": startDate,
+                        "paymentDue": handleDateToPay(startDate.toString(), payInDays),
                         "description": projectDescription,
-                        "paymentTerms": 1,
+                        "paymentTerms": payInDays,
                         "clientName": clientName,
                         "clientEmail": clientEmail,
                         "status": status,
@@ -285,6 +314,7 @@ return <>
                             <h2>Go back</h2>
                     </div>
                 </Link>
+                {params.edit === false && <p style={{'marginBottom': '2rem'}}>If you don't fill out all the fields, it is automatically a draft invoice</p>}
                 {/* double here */}
                 {params.edit && <h1 className={`${styles.h1}`}>Edit <span className={`${styles.hashtagColor}`}>#</span><span id='invoiceId'>{invoiceId}</span></h1>}
                 {!params.edit && <h1 className={`${styles.h1}`}>Create <span className={`${styles.hashtagColor}`}>#</span><span id='invoiceId'>{myId}</span></h1>}
@@ -380,7 +410,8 @@ return <>
                     </div>
                     <div className={`${styles.widthDropdown}`}>
                         {/* TO DO: extract days, calculate expirering date */}
-                        <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']} defaultValue={`Next ${dataInvoice.paymentTerms} days`}/>
+                        {/* paymentTerms, setPaymentTerms */}
+                        <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']} defaultValue={`${paymentTerms}`} setPaymentTerms={setPaymentTerms} />
                     </div>
                 </div>
                 <div className={`${styles.stretch}`}>

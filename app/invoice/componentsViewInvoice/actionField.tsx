@@ -5,8 +5,9 @@ import style from './actionField.module.css'
 type Props = {
     setUpdate: Dispatch<SetStateAction<boolean>>,
     setDeleteInvoice: Dispatch<SetStateAction<boolean>>,
+    setMarkAsPaidMessage: Dispatch<SetStateAction<string>>,
     id: string,
-    status: string
+    status?: string
 }
 
 export default function ActionField(props:Props) {
@@ -30,8 +31,10 @@ export default function ActionField(props:Props) {
                 location.reload() 
             }
         } else if (props.status == 'paid'){
+            props.setMarkAsPaidMessage('Status is already paid')
             console.log('Status is already paid')
         } else if (props.status == 'draft'){
+            props.setMarkAsPaidMessage('Please complete all information')
             console.log('Status has to be pending first. Please complete all information')
         }    
 

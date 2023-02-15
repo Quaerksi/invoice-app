@@ -71,26 +71,27 @@ export const updateInvoice = async(anInvoice:Invoice):Promise<Boolean> => {
         const invoice = await db
             .collection("ivoices")
                 .updateOne({ id: `${anInvoice.id}`}, { $set: { 
-                "senderAddress": {
-                    "street": `${anInvoice.senderAddress?.street}`,
-                    "city": `${anInvoice.senderAddress?.city}`,
-                    "postCode": `${anInvoice.senderAddress?.postCode}`,
-                    "country": `${anInvoice.senderAddress?.country}`
-                  },
-                "clientName": `${anInvoice.clientName}`,
-                "clientEmail": `${anInvoice.clientEmail}`,
-                "status": `${anInvoice.status}`,
-                "clientAddress": {
-                    "street": `${anInvoice.clientAddress?.street}`,
-                    "city": `${anInvoice.clientAddress?.city}`,
-                    "postCode": `${anInvoice.clientAddress?.postCode}`,
-                    "country": `${anInvoice.clientAddress?.country}`
-                  },
-                  "paymentTerms": `${anInvoice.paymentTerms}`,
-                  "description": `${anInvoice.description}`,
-                  items,
-                  "total":`${total}`
-            } })
+                    "paymentDue": anInvoice.paymentDue,
+                    "senderAddress": {
+                        "street": `${anInvoice.senderAddress?.street}`,
+                        "city": `${anInvoice.senderAddress?.city}`,
+                        "postCode": `${anInvoice.senderAddress?.postCode}`,
+                        "country": `${anInvoice.senderAddress?.country}`
+                    },
+                    "clientName": `${anInvoice.clientName}`,
+                    "clientEmail": `${anInvoice.clientEmail}`,
+                    "status": `${anInvoice.status}`,
+                    "clientAddress": {
+                        "street": `${anInvoice.clientAddress?.street}`,
+                        "city": `${anInvoice.clientAddress?.city}`,
+                        "postCode": `${anInvoice.clientAddress?.postCode}`,
+                        "country": `${anInvoice.clientAddress?.country}`
+                    },
+                    "paymentTerms": `${anInvoice.paymentTerms}`,
+                    "description": `${anInvoice.description}`,
+                    items,
+                    "total":`${total}`
+                } })
 
             return invoice.acknowledged;
     }

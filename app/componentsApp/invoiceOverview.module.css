@@ -74,6 +74,7 @@
     .container{
         min-width: 650px;
         padding-inline: 2rem;
+        
     }
 
     .containerLeftSite{
@@ -122,3 +123,10 @@
         display: block;
     }
 }
+
+/* @media(min-width: 90rem){
+
+    .container{
+        max-width: 800px;
+    }
+} */

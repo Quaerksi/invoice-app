@@ -3,7 +3,7 @@
 import '../styles/globals.css'
 import styles from './dropdownDefault.module.css'
 import Image from 'next/image' 
-import { useEffect, useRef } from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 
 // Context theme
 import { useThemeContext } from '../context/useThemeContext'
@@ -11,10 +11,11 @@ import { useThemeContext } from '../context/useThemeContext'
 interface dropdownValues {
     name: string,
     elements: string[],
-    defaultValue: string
+    defaultValue: string,
+    setPaymentTerms: Dispatch<SetStateAction<string>>,
 }
 
-export default function DropdownDefault({name, elements, defaultValue="Next 1 Day"}: dropdownValues)  {
+export default function DropdownDefault({name, elements, defaultValue, setPaymentTerms}: dropdownValues)  {
     const refDropdown = useRef<HTMLDivElement>(null);
     const refDropdownMenu = useRef<HTMLUListElement>(null)
     const refInput = useRef<HTMLInputElement>(null);
@@ -97,6 +98,12 @@ export default function DropdownDefault({name, elements, defaultValue="Next 1 Da
 
         if(letRefDropdown && letRefDropdown.firstElementChild && target.firstElementChild && letRefDropdownMenu && input){
             input.value = `${target.firstElementChild.textContent || ''}`;
+
+            //handle state for payment terms in the update form
+            if(target.firstElementChild.textContent){
+                setPaymentTerms(target.firstElementChild.textContent)
+            }
+            
             
             letRefDropdown.style.borderColor = getComputedStyle(document.documentElement).getPropertyValue('--color-form-border')
             letRefDropdownMenu.style.display = 'none';
