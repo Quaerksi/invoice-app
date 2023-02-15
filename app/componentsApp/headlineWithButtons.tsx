@@ -11,8 +11,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { useThemeContext } from '../../context/useThemeContext'
 import { useFilterContext } from '../../context/useFilterContext'
 
-import Image from 'next/image'
-
 interface Props {
     countInvoices: number;
   }
@@ -146,7 +144,7 @@ export default function Headline(prop: Props) {
                     <h3 className={`${styles.secondLine}`}><span>{count ? count : 0 }</span> invoices</h3>
                 </div>
                 <div className={`${styles.orderButton}`}>
-                    <h3  onClick={filterButtonOnClick}>
+                    <h3 onClick={filterButtonOnClick}>
                         <button className={`${design.btn} ${design.btn3Color} `}> 
                                 <div className={` ${design.btn1} ${design.btnFlex} ${styles.btnWithArrow}`}>
                                     Filter
@@ -157,15 +155,15 @@ export default function Headline(prop: Props) {
                     <div ref={checkBox} style={{display: 'none'}} className={`${styles.containerFilterOption}`}>
                         <div onClick={containerFilterOptionsLineOnClick} onMouseEnter={containerFilterOptionsLineOnMouseEnter} onMouseLeave={containerFilterOptionsLineOnMouseLeave} className={`${styles.containerFilterOptionsLine}`}>
                             <div className={`${styles.containerFilterOptionsCheckBox}`}></div>
-                            <span className={`hallo ${styles.containerFilterOptionsName}`}>Draft</span>
+                            <span className={`${styles.containerFilterOptionsName}`}>Draft</span>
                         </div>
                         <div  onClick={containerFilterOptionsLineOnClick} onMouseEnter={containerFilterOptionsLineOnMouseEnter} onMouseLeave={containerFilterOptionsLineOnMouseLeave} className={`${styles.containerFilterOptionsLine}`}>
                             <div  className={`${styles.containerFilterOptionsCheckBox}`}></div>
-                            <span className={`hallo ${styles.containerFilterOptionsName}`}>Pending</span>
+                            <span className={`${styles.containerFilterOptionsName}`}>Pending</span>
                         </div>
                         <div onClick={containerFilterOptionsLineOnClick} onMouseEnter={containerFilterOptionsLineOnMouseEnter} onMouseLeave={containerFilterOptionsLineOnMouseLeave} className={`${styles.containerFilterOptionsLine}`}>
                             <div className={`${styles.containerFilterOptionsCheckBox}`}></div>
-                            <span className={`hallo ${styles.containerFilterOptionsName}`}>Paid</span>
+                            <span className={`${styles.containerFilterOptionsName}`}>Paid</span>
                         </div>
                     </div>
                     <h3>

@@ -13,12 +13,6 @@ import { FilterProvider } from '../context/filterContext'
 // call to my api, read data from DB
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-interface dropdownValues {
-    name: string,
-    elements: string[],
-    defaultValue: string
-}
-
 export default function Page() {
 
     // call to my api, read data from DB
