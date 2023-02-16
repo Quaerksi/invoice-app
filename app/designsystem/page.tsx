@@ -61,7 +61,7 @@ export default function Page() {
             <div>
                 <h3>Button 4 - Light/Dark</h3>
                     <h3>
-                        <button className={`${styles.btn} ${styles.btn4Color}`}> 
+                        <button className={`${styles.btn} ${styles.btn3Color}`}> 
                             <div className={` ${styles.btn1} ${styles.btnFlex}`}>
                                 Save as Draft
                             </div>
@@ -83,7 +83,7 @@ export default function Page() {
             <div>
                 <h3>Button 6</h3>
                     <h3>
-                        <button className={`${styles.btn} ${styles.btn6Color}`}> 
+                        <button className={`${styles.btn} ${styles.btn3Color}`}> 
                             <div className={`${styles.btn1}  ${styles.btn3} ${styles.btnFlex}`}>
                                 + Add New Item
                             </div>

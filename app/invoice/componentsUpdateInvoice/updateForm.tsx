@@ -425,7 +425,7 @@ return <>
                     {invoices}
                 </div>
                     <h3>
-                        <button  type="button" className={`${designsystem.btn} ${designsystem.btn6Color} ${styles.btnAddNewItem}`} onClick={addNewItem}> 
+                        <button  type="button" className={`${designsystem.btn} ${designsystem.btn3Color} ${styles.btnAddNewItem}`} onClick={addNewItem}> 
                             <div className={`${designsystem.btn1}  ${designsystem.btn3} ${designsystem.btnFlex}`}>
                                 + Add New Item
                             </div>
