@@ -10,7 +10,7 @@ export const ThemeContext = createContext({themeMode: 'light', setThemeMode: (th
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {  
     
     // const [loggedIn, setLoggedIn] = useState(false); 
-    const [themeMode, setThemeMode] = useState<string>('light')
+    const [themeMode, setThemeMode] = useState<string>()
 
      // handle theme mode
      useEffect(() => {
@@ -18,29 +18,37 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
       if(themeMode === 'dark'){
 
         document.documentElement.setAttribute('data-theme', 'dark');
-        // localStorage.setItem('theme', 'dark'); 
+        localStorage.setItem('theme', 'dark'); 
+
       } else if (themeMode === 'light'){
        
         document.documentElement.setAttribute('data-theme', 'light');
-        // localStorage.setItem('theme', 'dark'); 
+        localStorage.setItem('theme', 'light'); 
       }
       else{
         console.log('WARNING wrong theme mode name')
       }
     }, [themeMode])
-    
-      //To do: save preference on user browser
-      // HANDLE SAVED THEME MODE
-      // let currentTheme;
-      // useEffect(() => {
-      //   currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-      //   if (currentTheme) {
-      //     document.documentElement.setAttribute('data-theme', currentTheme);
-      //     if (currentTheme === 'dark') {     
-      //        // buttn has to be toggled to be fitting the mode
-      //     }
-      // }
-      // }, []);
+
+      // save theme mode in browser
+      let currentTheme;
+      useEffect(() => {
+
+        currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        if (currentTheme) {
+
+          if (currentTheme === 'dark') {
+
+            setThemeMode('dark')
+          } else {
+
+            setThemeMode('light')
+          }
+        } else {
+        localStorage.setItem('theme', 'light')
+        setThemeMode('light')
+      }
+      }, []);
 
         
     return (
