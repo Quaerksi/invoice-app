@@ -21,8 +21,6 @@ export default function InvoiceOverview(prop: Props) {
 
     const {filterMode} = useFilterContext();
     const [show, setShow] = useState<boolean>(true)
-    
-    console.log(`Filter mode: ${filterMode}, ${prop?.invoice?.status?.toLowerCase()}`)
 
     // handle theme mode
     useEffect(() => {

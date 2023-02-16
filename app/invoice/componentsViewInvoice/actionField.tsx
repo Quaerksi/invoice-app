@@ -32,10 +32,10 @@ export default function ActionField(props:Props) {
             }
         } else if (props.status == 'paid'){
             props.setMarkAsPaidMessage('Status is already paid')
-            console.log('Status is already paid')
+            // console.log('Status is already paid')
         } else if (props.status == 'draft'){
             props.setMarkAsPaidMessage('Please complete all information')
-            console.log('Status has to be pending first. Please complete all information')
+            // console.log('Status has to be pending first. Please complete all information')
         }    
 
         
