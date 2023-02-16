@@ -96,7 +96,7 @@ export default function Page() {
         <div className={`${styles.order}`}>
             <div>
                 <form className={`${styles.form}`} action="" method="post">
-                        <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']} defaultValue={`Next 1 day`}/>
+                        {/* <DropdownDefault name='Payment Terms' elements={['Next 1 day', 'Next 7 days', 'Next 14 days', 'Next 30 days']} defaultValue={`Next 1 day`}/> */}
                     
                         <h3>Text Field</h3>
                         <label  htmlFor="adress">Street Address:</label>
