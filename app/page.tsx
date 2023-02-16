@@ -23,6 +23,8 @@ export default function Page() {
 
     const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <div key={`InvoiceOverview-${index}`} style={{marginBottom: '1rem'}}> <InvoiceOverview invoice={invoice} /> </div>)
 
+    console.log(`process.env.MONGODB_URI ${process.env.MONGODB_URI}`)
+
     return <div className={styles.content}>
                 <FilterProvider>
                 <Headline countInvoices={data?.length}/>
