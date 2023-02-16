@@ -10,7 +10,7 @@ export const ThemeContext = createContext({themeMode: 'light', setThemeMode: (th
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {  
     
     // const [loggedIn, setLoggedIn] = useState(false); 
-    const [themeMode, setThemeMode] = useState<string>()
+    const [themeMode, setThemeMode] = useState<string>('')
 
      // handle theme mode
      useEffect(() => {
