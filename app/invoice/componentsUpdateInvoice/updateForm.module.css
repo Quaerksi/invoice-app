@@ -13,7 +13,7 @@
     position: relative;
     background-color: var(--color-background-edit);
     padding: 3rem;
-    margin-bottom: 5rem;
+    margin-bottom: 0rem;
     box-shadow: 0 2rem 2rem  var(--color-background-edit);
 }
 
@@ -93,8 +93,13 @@
 .buttonBar{
     justify-content: flex-end !important;
     gap: 2rem;
+    margin-inline: 2rem !important;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
+    background-color: var(--color-background-site);
     box-shadow: 0 0.5rem 2rem  var(--color-background-edit);
     position: relative;
+    border-radius: 0;
     z-index:9999;
 }
 
