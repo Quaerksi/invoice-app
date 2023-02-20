@@ -21,6 +21,8 @@ import Image from 'next/image'
 
 import design from '../../../styles/designsystem.module.css'
 
+import {useRouter} from 'next/navigation'
+
 interface Params {
     id?: String
     edit: Boolean
@@ -68,6 +70,8 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 // TO DO: handle this file for - create new invoice
 // TO DO: make draft possible -> If not all fields are filled out, it is a draft
 export default function UpdateForm(paramsIn:Params) {
+
+    const router = useRouter()
 
     const params = {defaultParams, ... paramsIn}
 
@@ -242,7 +246,9 @@ export default function UpdateForm(paramsIn:Params) {
 
                 if(response.status == 200){
             
-                    location.reload() 
+                    router.refresh()
+                    params.setUpdate(false)
+                    
                 }
             }
         } else if(params.edit === false){
@@ -289,7 +295,8 @@ export default function UpdateForm(paramsIn:Params) {
 
                 if(response.status == 200){
             
-                    location.reload() 
+                    params.setUpdate(false)
+                    router.push('/') 
                 }
             }
         }
@@ -432,7 +439,8 @@ return <>
                         </button>
                     </h3>
                 </div>
-                <div className={`${design.containerDesign} ${design.actionField}  ${styles.buttonBar}`}>
+                {/* {params.edit &&  */}
+                <div className={`${design.containerDesign} ${design.actionField} ${styles.buttonBar} ${styles.buttonBarBasic}`}>
                     <h3 className={`${styles.h3}`}>
                         <button  onClick={() => params.setUpdate(false)} className={`${design.btn} ${design.btn3Color}`}> 
                                 <div className={` ${design.btn1} ${design.btnFlex}`}>
@@ -448,6 +456,32 @@ return <>
                         </button>
                     </h3>
                 </div>
+                 {/* } */}
+                {/* {!params.edit && <div className={`${design.containerDesign} ${design.actionField} ${styles.buttonBarBasic}`}>
+                    <h3 className={`${styles.h3}`}>
+                        <button  onClick={() => params.setUpdate(false)} className={`${design.btn} ${design.btn3Color}`}> 
+                                <div className={` ${design.btn1} ${design.btnFlex}`}>
+                                    Cancel
+                                </div>
+                        </button>
+                    </h3>
+                    <div className={`${styles.buttonBarSubmit}`}>
+                        <h3 className={`${styles.h3} ${styles.h3First}`}>
+                            <button onClick={() => params.setUpdate(false)} className={`${design.btn} ${design.btn3Color}`}> 
+                                    <div className={` ${design.btn1} ${design.btnFlex}`}>
+                                        Save as Draft
+                                    </div>
+                            </button>
+                        </h3>
+                        <h3 className={` ${styles.h3}`}>
+                            <button type="submit" className={`${design.btn} ${design.btnColor1}`}> 
+                                <div className={` ${design.btn1} ${design.btnFlex}`}>
+                                    Save Changes
+                                </div>
+                            </button>
+                        </h3>
+                    </div>
+                </div>} */}
             </form>
             </div>
             

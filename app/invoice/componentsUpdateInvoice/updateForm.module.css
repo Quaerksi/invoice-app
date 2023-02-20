@@ -93,19 +93,33 @@
 .buttonBar{
     justify-content: flex-end !important;
     gap: 2rem;
-    margin-inline: 2rem !important;
-    margin-bottom: 1rem;
-    margin-top: 0rem;
-    background-color: var(--color-background-site);
-    box-shadow: 0 0.5rem 2rem  var(--color-background-edit);
+    
+    
     position: relative;
     border-radius: 0;
     z-index:9999;
 }
 
+.buttonBarBasic{
+    background-color: var(--color-background-site);
+    box-shadow: 0 0.5rem 2rem  var(--color-background-edit);
+    margin-inline: 2rem !important;
+    margin-bottom: 1rem;
+}
+
 .h3{
     margin: 0;
 }
+
+.h3First{
+    margin-right: 1rem !important;
+}
+
+.buttonBarSubmit > *{
+    display: inline; 
+}
+
+
 
 @media(min-width: 768px){
 

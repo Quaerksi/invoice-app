@@ -1,7 +1,6 @@
 import styles from './popUpBox.module.css'
 import design from '../../../styles/designsystem.module.css'
 import { Dispatch, SetStateAction } from 'react'
-
 import {useRouter} from 'next/navigation'
 
 type Props = {
