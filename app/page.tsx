@@ -21,7 +21,7 @@ export default function Page() {
     if (error) return <div style={{'marginTop': '6rem'}}>Failed to load users</div>
     if (!data) return <div style={{'marginTop': '6rem'}}>Loading...</div>
 
-    const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <div key={`InvoiceOverview-${index}`} style={{marginBottom: '1rem'}}> <InvoiceOverview invoice={invoice} /> </div>)
+    const allInvoices:React.ReactElement[] = data?.map((invoice, index, arr) => <InvoiceOverview invoice={invoice} />)
     return <div className={styles.content}>
                 <FilterProvider>
                 <Headline countInvoices={data?.length}/>

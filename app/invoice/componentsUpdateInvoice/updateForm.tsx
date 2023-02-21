@@ -295,8 +295,8 @@ export default function UpdateForm(paramsIn:Params) {
 
                 if(response.status == 200){
             
-                    params.setUpdate(false)
                     router.push('/') 
+                    params.setUpdate(false)
                 }
             }
         }
